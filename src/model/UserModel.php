@@ -28,4 +28,19 @@ class UserModel extends GlobalModel{
         $data = $request->fetch(\PDO::FETCH_ASSOC);
         return $data;
     }
+
+    public function requestUpdate($id, $changes){
+
+        $strRequest = "Update users SET";
+
+        foreach ($changes as $key => $value) {
+            $strRequest = $strRequest . " `$key` = :$key,";
+        }
+
+        $strRequest = rtrim($strRequest, ','); // suprimer la virgule finale
+        $strRequest = $strRequest . " " . "WHERE id = $id";
+
+        $request = $this->connect->prepare($strRequest);
+        $request->execute($changes);
+    }
 }

@@ -61,7 +61,6 @@ class UserController{
     }
 
     private function checkEmail($email){
-        echo $email;
         $user = new UserModel();
         $count = $user->requestCheckEmail($email);
 
@@ -147,6 +146,71 @@ class UserController{
         }else{
             $this->msg = "<p class='error'>remplir tout les champs.</p>";
         }
+    }
+
+
+    ##################################################################################
+    ######################################## Update ##################################
+    ##################################################################################
+
+
+    public function Update($post){
+        $user = $_SESSION['user'];
+
+        $idUser = $user->getId();
+
+        $this->Xss($post);
+
+        $changes = [];
+
+        $posts = [$post['login'], $post['email'], $post['password']];
+
+        if($this->checkFormNotEmpty($posts)){
+            if(password_verify($post['password'], $user->getPassword())){
+                if($post['email'] != $user->getEmail()){
+
+                    if($this->checkEmail($post['email'])){
+                        $changes['email'] = $post['email'];
+                        $_SESSION['user']->setEmail($post['email']);
+                    }
+                }
+
+                if($post['newPassword'] != null){
+                    if($this->checkPassword($post['newPassword'], $post['confirmNewPassword'])){
+                        $hashedPassword = password_hash($post['newPassword'], PASSWORD_BCRYPT);
+                        $changes['password'] = $hashedPassword;
+                        $_SESSION['user']->setPassword($hashedPassword);
+                    }
+                }
+
+                if($post['login'] != $user->getLogin()){
+                    $changes['login'] = $post['login'];
+                    $_SESSION['user']->setLogin($post['login']);
+                }
+
+                if(!empty($changes)){
+                    $request = new UserModel();
+                    $request->requestUpdate($idUser, $changes);
+                    $this->msg = "<p>Les changements ont été effectués.</p>";
+                }else{
+                    $this->msg = "<p class='error'>Rien n'a été changé.</p>";
+                }
+
+
+            }else{
+                $this->msg = "<p class='error'>Le mot de passe est faux</p>";
+            }
+        }else{
+            $this->msg = "<p class='error'>Remplir tous les champs.</p>";
+        }
+
+    }
+
+    public function disConnect(){
+        session_unset();
+        session_destroy();
+
+        header("location: index.php");
     }
 
 
