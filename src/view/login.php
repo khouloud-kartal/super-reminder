@@ -2,6 +2,8 @@
 
 namespace App\view;
 
+use App\controller\UserController;
+
 require_once('../../autoloader.php');
 
 session_start();
@@ -20,11 +22,12 @@ if($_POST != null && isset($_GET['inscription'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./scripts/script.js" defer></script>
     <title>Connexion</title>
 </head>
 <body>
     <main>
-        <form action="connexion.php" method="post" id="connexion">
+        <form action="login.php" method="post" id="login">
             <fieldset>
                 <legend>Sign In</legend>
 
