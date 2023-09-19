@@ -6,6 +6,8 @@ use App\model\WorkspaceModel;
 class WorkspaceController{
     private ?int $id;
 
+    private ?int $userId;
+
     private ?string $title;
 
     private ?string $description;
@@ -37,6 +39,13 @@ class WorkspaceController{
 
     }
 
+    public function getAllWorkspaceDataByUserId($userId){
+        $request = new WorkspaceModel();
+        $data = $request->requestGetWorkspaceByUserId($userId);
+
+        return $data;
+    }
+
     ##################################################################################
     ######################################## Getters #################################
     ##################################################################################
@@ -44,6 +53,10 @@ class WorkspaceController{
 
     public function getId(){
         return $this->id;
+    }
+
+    public function getUserId(){
+        return $this->userId;
     }
 
     public function getTitle()
@@ -66,6 +79,10 @@ class WorkspaceController{
 
     public function setId($id){
         $this->id = $id;
+    }
+
+    public function setUserId($userId){
+        $this->userId = $userId;
     }
 
     public function setTitle($title){

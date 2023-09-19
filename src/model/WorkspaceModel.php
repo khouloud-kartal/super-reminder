@@ -14,4 +14,11 @@ class WorkspaceModel extends GlobalModel{
         return $request;
     }
 
+    public function requestGetWorkspaceByUserId($userId){
+        $request = $this->connect->prepare("SELECT id, userId, title FROM workspace WHERE userId = :userId");
+        $request->execute([':userId' => $userId]);
+        $data = $request->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
+
 }
