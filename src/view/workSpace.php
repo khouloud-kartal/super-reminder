@@ -4,36 +4,35 @@
 
     require_once('../../autoloader.php');
 
-    use App\controller\TablesController;
+    session_start();
+
+    $user = $_SESSION['user'];
+
+    use App\controller\WorkspaceController;
     
-    $table = new TablesController();
+    $workspace = new WorkspaceController();
 
-    // if($_POST != NULL && isset($_GET['inscription'])){
-    //     $user->Register($_POST);
-    //     echo $user->getMsg();
-    //     die();  
-    // }
-
-    if(isset($_POST['submit'])){
-        $table->register($_POST['title'], $_POST['description']);
+     if($_POST != NULL && isset($_GET['inscription'])){
+        $workspace->addWorkspace($_POST, $user->getId());
+        echo $workspace->getMsg();
+        die();
     }
-
 
     
 ?>
 
 <?php require_once('./includes/header.php'); ?>
     <main>
-        
-        <form action="tableForm.php" method="post" id="tableForm">
+<!--        --><?php //require_once('./includes/sideBar.php'); ?>
+        <form action="workSpace.php" method="post" id="workSpace">
             <fieldset>
-                <legend>Add a table</legend>
+                <legend>Add a Work Space</legend>
 
                 <label for="title">Title</label>
                 <input type="text" name="title" placeholder="Title" id="title">
 
                 <label for="description">Description</label>
-                <textarea type="text" name="description" placeholder="Description" id="description"></textarea>
+                <textarea name="description" placeholder="Description" id="description"></textarea>
 
                 <button type="submit" name="submit" value="submit" id="btableForm">Submit</button>
                 
