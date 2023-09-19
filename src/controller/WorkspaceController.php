@@ -45,6 +45,12 @@ class WorkspaceController{
         return $data;
     }
 
+    public function checkTablesExists($userId, $workspaceId){
+        $request = new WorkspaceModel();
+        $data = $request->requestCheckTablesExists($userId, $workspaceId);
+        return $data;
+    }
+
     ##################################################################################
     ######################################## Getters #################################
     ##################################################################################

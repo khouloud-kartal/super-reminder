@@ -14,4 +14,11 @@ class TablesModel extends GlobalModel{
         return $request;
     }
 
+    public function requestGetTablesByWorkspaceId($workspaceId){
+        $request = $this->connect->prepare("SELECT * FROM tables WHERE workspaceId = :workspaceId");
+        $request->execute([':workspaceId' => $workspaceId]);
+        $data = $request->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
+
 }

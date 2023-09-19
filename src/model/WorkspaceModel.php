@@ -21,4 +21,13 @@ class WorkspaceModel extends GlobalModel{
         return $data;
     }
 
+    public function requestCheckTablesExists($userId, $workspaceId){
+        $request = $this->connect->prepare("SELECT * FROM workspace INNER JOIN tables ON workspace.id = tables.workspaceId WHERE workspace.userId = :userId AND tables.workspaceId = :workspaceId");
+        $request->execute([':userId' => $userId,
+                            ':workspaceId' => $workspaceId
+            ]);
+        $data = $request->rowCount();
+        return $data;
+    }
+
 }

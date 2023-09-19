@@ -39,8 +39,10 @@ class TablesController{
 
     }
 
-    public function GetTablesByWorkspaceId(){
-
+    public function GetTablesByWorkspaceId($workspaceId){
+        $request = new TablesModel();
+        $data = $request->requestGetTablesByWorkspaceId($workspaceId);
+        return $data;
     }
 
     ##################################################################################

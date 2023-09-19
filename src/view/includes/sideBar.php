@@ -22,18 +22,18 @@ $workspaceData = $workspace->getAllWorkspaceDataByUserId($user->getId());
             <a href="./workSpace.php
             " class="w3-bar-item w3-button">Add a Work Space</a>
             <?php foreach ($workspaceData as $title) { ?>
-                <a href="./wordspaceLists.php?workspaceId=<?= $title['id'];?>" class="w3-bar-item w3-button"><?= $title['title'];?></a>
+                <a href="./wordspaceLists.php?workspaceId=<?= $title['id'];?>&workspaceTitle=<?= $title['title'];?>" class="w3-bar-item w3-button"><?= $title['title'];?></a>
             <?php }?>
 
         </div>
 
-<!--        <div class="w3-dropdown-click">-->
-<!--            <button class="w3-button" onclick="myDropFunc()">Tables <i class="fa fa-caret-down"></i></button>-->
-<!--            <div id="demoDrop" class="w3-dropdown-content w3-bar-block w3-white w3-card">-->
-<!--            <a href="./tables.php" class="w3-bar-item w3-button">Add a table</a>-->
+        <div class="w3-dropdown-click">
+            <button class="w3-button" onclick="myDropFunc()">Tables <i class="fa fa-caret-down"></i></button>
+            <div id="demoDrop" class="w3-dropdown-content w3-bar-block w3-white w3-card">
+            <a href="./tables.php" class="w3-bar-item w3-button">Add a table</a>
 <!--            <a href="#" class="w3-bar-item w3-button">Link</a>-->
-<!--            </div>-->
-<!--        </div>-->
+            </div>
+        </div>
         <a href="#" class="w3-bar-item w3-button">Link 2</a>
         <a href="#" class="w3-bar-item w3-button">Link 3</a>
     </div>
