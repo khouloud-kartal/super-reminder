@@ -42,7 +42,6 @@ class WorkspaceController{
     public function getAllWorkspaceDataByUserId($userId){
         $request = new WorkspaceModel();
         $data = $request->requestGetWorkspaceByUserId($userId);
-
         return $data;
     }
 

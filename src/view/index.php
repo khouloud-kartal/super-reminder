@@ -1,7 +1,10 @@
 <?php
 
+namespace App\view;
+
+require_once('../../autoloader.php');
+
 session_start();
-//var_dump($_SESSION['user']);
 
 ?>
 

@@ -17,11 +17,11 @@ $workspace = new WorkspaceController();
 
 $workspaceData = $workspace->getAllWorkspaceDataByUserId($user->getId());
 
-//if($_POST != NULL && isset($_GET['inscription'])){
-//    $workspace->addTable($_POST, $user->getId());
-//    echo $workspace->getMsg();
-//    die();
-//}
+if($_POST != NULL && isset($_GET['inscription'])){
+    $table->addTable($_POST);
+    echo $table->getMsg();
+    die();
+}
 
 
 ?>
