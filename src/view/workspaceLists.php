@@ -30,14 +30,14 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
 <main>
     <div id="tableList">
 <!--        --><?php //if($workspaceData){ ?><!-- -->
-            <?php foreach ($data as $table){?>
+            <!-- <?php foreach ($data as $table){?>
         <div class="list" style="border: 2px solid black">
             <p>Title: <?= $table['title'] ?></p>
             <p>Description: <?= $table['description'] ?></p>
             <button id="addTask" value="<?= $table['id'] ?>">Add Task</button>
         </div>
 
-        <?php } ?>
+        <?php } ?> -->
             <!-- <a href="./tables.php" class="w3-bar-item w3-button"><button id="addListBtn">Add a List</button></a> -->
 
 <!--        --><?php //}else{?>

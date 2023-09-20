@@ -28,15 +28,8 @@ const form = document.querySelector('form');
 const displayError = async ($id) =>{ 
     const formData = new FormData(form);
     const response = await fetch($id + '.php?inscription=true', {method: "POST", body: formData});
-    if (response.headers.get('content-type').includes('application/array')){ //Vérifiez si la réponse a le type de contenu "application/json"
-      const responseData = await response.json();
-      const tableList = document.getElementById('tableList');
-      responseData.forEach(list => {
-        console.log(list);
-      });
-
-    }else{
-      const responseData = await response.text();
+  
+    const responseData = await response.text();
 
       if(responseData === 'Vous êtes connecté(e), vous allez être rédiger dans la page d\'acceuil dans 2 secondes.'){
           setTimeout(() => {
@@ -47,15 +40,53 @@ const displayError = async ($id) =>{
       const message = document.getElementById('message');
 
       message.innerHTML = responseData;
-    }
-    
+        
     
 }
+
+const displayLists = async () =>{
+  const formData = new FormData(form);
+  const response = await fetch('tables.php?inscription=true', {method: "POST", body: formData});
+
+  const responseData = await response.json();
+
+  responseData.forEach(list => {
+
+    const lists = document.createElement('div');
+    lists.setAttribute('class', 'list');
+    
+    const title = document.createElement('p');
+    title.innerHTML = list.title;
+    
+    const description = document.createElement('p');
+    description.innerHTML = list.description;
+
+    const addTaskbutton = document.createElement('button');
+    addTaskbutton.setAttribute('id', 'addTask');
+    addTaskbutton.setAttribute('value', list.id);
+
+    lists.appendChild(title);
+    lists.appendChild(description);
+    lists.appendChild(addTaskbutton);
+
+    tableList.appendChild(lists);
+  });
+
+}
+
+displayLists();
 
 if (form.id) {
   form.addEventListener('submit', async(e) =>{
     e.preventDefault();
-    await displayError(form.id);
+    if(form.id === 'tables'){
+      const tableList = document.getElementById('tableList');
+      // tableList.innerHTML= '';
+      await displayLists();
+    }else{
+      await displayError(form.id);
+    }
+    
   });
 }
 
