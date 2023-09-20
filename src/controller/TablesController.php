@@ -45,6 +45,14 @@ class TablesController{
         return $data;
     }
 
+    public function getListJson($workspaceId){
+        $request = new TablesModel();
+        $data = $request->requestGetTablesByWorkspaceId($workspaceId);
+        $json = json_encode($data);
+
+        return $json;
+    }
+
     ##################################################################################
     ######################################## Getters #################################
     ##################################################################################

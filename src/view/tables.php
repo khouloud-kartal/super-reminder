@@ -18,9 +18,10 @@ $workspace = new WorkspaceController();
 
 if($_POST != NULL && isset($_GET['inscription'])){
     $table->addTable($_POST, $_SESSION['WorkspaceId']);
-    echo $table->getMsg();
+    $lists = $table->getListJson($_SESSION['WorkspaceId']);
+    // echo $table->getMsg();
+    echo $lists;
     die();
 }
-
 
 

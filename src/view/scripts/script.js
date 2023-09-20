@@ -28,22 +28,28 @@ const form = document.querySelector('form');
 const displayError = async ($id) =>{ 
     const formData = new FormData(form);
     const response = await fetch($id + '.php?inscription=true', {method: "POST", body: formData});
-    const responseData = await response.text();
-    console.log(responseData);
+    if (response.headers.get('content-type').includes('application/array')){ //Vérifiez si la réponse a le type de contenu "application/json"
+      const responseData = await response.json();
+      const tableList = document.getElementById('tableList');
+      responseData.forEach(list => {
+        console.log(list);
+      });
 
-    if(responseData === 'Vous êtes connecté(e), vous allez être rédiger dans la page d\'acceuil dans 2 secondes.'){
-        setTimeout(() => {
-            // window.location.href = "http://localhost/github/moduleconnexion-b2/view/index.php";
-        }, 2000);
+    }else{
+      const responseData = await response.text();
+
+      if(responseData === 'Vous êtes connecté(e), vous allez être rédiger dans la page d\'acceuil dans 2 secondes.'){
+          setTimeout(() => {
+              // window.location.href = "http://localhost/github/moduleconnexion-b2/view/index.php";
+          }, 2000);
+      }
+      
+      const message = document.getElementById('message');
+
+      message.innerHTML = responseData;
     }
-
-    if(responseData === 'List is added'){
-      const list = document.createElement
-    }
-
-    const message = document.getElementById('message');
-
-    message.innerHTML = responseData;
+    
+    
 }
 
 if (form.id) {

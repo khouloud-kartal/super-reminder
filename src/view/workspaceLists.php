@@ -38,7 +38,7 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
         </div>
 
         <?php } ?>
-            <a href="./tables.php" class="w3-bar-item w3-button"><button id="addListBtn">Add a List</button></a>
+            <!-- <a href="./tables.php" class="w3-bar-item w3-button"><button id="addListBtn">Add a List</button></a> -->
 
 <!--        --><?php //}else{?>
 <!---->
