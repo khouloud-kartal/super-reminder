@@ -23,34 +23,30 @@ if($_POST != NULL && isset($_GET['inscription'])){
     die();
 }
 
-
 ?>
 
-<?php require_once('./includes/header.php'); ?>
-<main>
-    <!--        --><?php //require_once('./includes/sideBar.php'); ?>
-    <form action="tables.php" method="post" id="tables">
-        <fieldset>
-            <legend>Add a Tables</legend>
+<?php if(isset($_GET['listForm'])){ ?>
+    
+<form action="tables.php" method="post" id="tables">
+    <fieldset>
+        <legend>Add a List</legend>
 
-            <label for="title">Title</label>
-            <input type="text" name="title" placeholder="Title" id="title">
+        <label for="title">Title</label>
+        <input type="text" name="title" placeholder="Title" id="title">
 
-            <label for="description">Description</label>
-            <textarea name="description" placeholder="Description" id="description"></textarea>
+        <label for="description">Description</label>
+        <textarea name="description" placeholder="Description" id="description"></textarea>
 
-            <select name="workspace">
-                <?php foreach ($workspaceData as $title) { ?>
-                    <option value="<?= $title['id'];?>"><?= $title['title'];?></option>
-                <?php }?>
-            </select>
+        <select name="workspace">
+            <?php foreach ($workspaceData as $title) { ?>
+                <option value="<?= $title['id'];?>"><?= $title['title'];?></option>
+            <?php }?>
+        </select>
 
-            <button type="submit" name="submit" value="submit" id="btableForm">Submit</button>
+        <button type="submit" name="submit" value="submit" id="btableForm">Add</button>
 
-            <div id="message"></div>
-        </fieldset>
-    </form>
-</main>
+        <div id="message"></div>
+    </fieldset>
+</form>
 
-</body>
-</html>
+<?php } ?>

@@ -1,7 +1,5 @@
 <?php
 
-$user = $_SESSION['user'];
-
 use App\controller\WorkspaceController;
 use App\controller\TablesController;
 
@@ -9,7 +7,11 @@ $table = new TablesController();
 
 $workspace = new WorkspaceController();
 
-$workspaceData = $workspace->getAllWorkspaceDataByUserId($user->getId());
+
+    $user = $_SESSION['user'];
+    $workspaceDataById = $workspace->getAllWorkspaceDataByUserId($user->getId());
+ 
+
 
 
 ?>
@@ -21,7 +23,7 @@ $workspaceData = $workspace->getAllWorkspaceDataByUserId($user->getId());
         <div id="demoAcc" class="w3-hide w3-white w3-card">
             <a href="./workSpace.php
             " class="w3-bar-item w3-button">Add a Work Space</a>
-            <?php foreach ($workspaceData as $title) { ?>
+            <?php foreach ($workspaceDataById as $title) { ?>
                 <a href="./wordspaceLists.php?workspaceId=<?= $title['id'];?>&workspaceTitle=<?= $title['title'];?>" class="w3-bar-item w3-button"><?= $title['title'];?></a>
             <?php }?>
 

@@ -43,7 +43,15 @@ const displayError = async ($id) =>{
     message.innerHTML = responseData;
 }
 
-form.addEventListener('submit', async(e) =>{
+if (form) {
+  form.addEventListener('submit', async(e) =>{
     e.preventDefault();
     await displayError(form.id);
-});
+  });
+}
+
+
+
+////////////////////////////////// Add A list ////////////////////
+
+const formList = document.getElementById('')

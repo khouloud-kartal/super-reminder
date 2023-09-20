@@ -22,6 +22,7 @@
 ?>
 
 <?php require_once('./includes/header.php'); ?>
+<?php require_once('./includes/sideBar.php'); ?>
     <main>
 <!--        --><?php //require_once('./includes/sideBar.php'); ?>
         <form action="workSpace.php" method="post" id="workSpace">

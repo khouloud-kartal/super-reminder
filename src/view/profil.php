@@ -19,6 +19,7 @@ if($_POST != NULL && isset($_GET['inscription'])){
 ?>
 
 <?php require_once('./includes/header.php'); ?>
+<?php require_once('./includes/sideBar.php'); ?>
     <main>
         <form action="profil.php" method="post" id="profil">
             <fieldset>
