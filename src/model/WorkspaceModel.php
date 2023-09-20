@@ -26,7 +26,10 @@ class WorkspaceModel extends GlobalModel{
         $request->execute([':userId' => $userId,
                             ':workspaceId' => $workspaceId
             ]);
+
+
         $data = $request->rowCount();
+
         if($data === 0){
 
             return false;

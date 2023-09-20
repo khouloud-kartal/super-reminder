@@ -25,7 +25,6 @@ function myAccFunc() {
 ////////////////////////////////////// Display Error /////////////////////////////////
 
 const form = document.querySelector('form');
-
 const displayError = async ($id) =>{ 
     const formData = new FormData(form);
     const response = await fetch($id + '.php?inscription=true', {method: "POST", body: formData});
@@ -38,17 +37,23 @@ const displayError = async ($id) =>{
         }, 2000);
     }
 
+    if(responseData === 'List is added'){
+      const list = document.createElement
+    }
+
     const message = document.getElementById('message');
 
     message.innerHTML = responseData;
 }
 
-if (form) {
+if (form.id) {
   form.addEventListener('submit', async(e) =>{
     e.preventDefault();
     await displayError(form.id);
   });
 }
+
+
 
 
 

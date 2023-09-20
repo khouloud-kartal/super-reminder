@@ -28,11 +28,11 @@ class TablesController{
         return true;
 
     }
-    public function addTable($post){
+    public function addTable($post, $workspace){
         if($this->checkFormNotEmpty($post)){
             $request = new TablesModel();
-            $request->requestAddTables($post['title'], $post['description'], $post['workspace']);
-            $this->msg = '<p>Table is added</p>';
+            $request->requestAddTables($post['title'], $post['description'], $workspace);
+            $this->msg = '<p>List is added</p>';
         }else{
             $this->msg = '<p>remplir tous les champs</p>';
         }

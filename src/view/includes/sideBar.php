@@ -24,7 +24,7 @@ $workspace = new WorkspaceController();
             <a href="./workSpace.php
             " class="w3-bar-item w3-button">Add a Work Space</a>
             <?php foreach ($workspaceDataById as $title) { ?>
-                <a href="./wordspaceLists.php?workspaceId=<?= $title['id'];?>&workspaceTitle=<?= $title['title'];?>" class="w3-bar-item w3-button"><?= $title['title'];?></a>
+                <a href="./workspaceLists.php?workspaceId=<?= $title['id'];?>&workspaceTitle=<?= $title['title'];?>" class="w3-bar-item w3-button"><?= $title['title'];?></a>
             <?php }?>
 
         </div>
