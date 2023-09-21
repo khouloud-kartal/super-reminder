@@ -11,7 +11,7 @@ session_start();
 <?php require_once('./includes/header.php'); ?>
 
 <?php 
-if(isset($_SESSION)){
+if(isset($_SESSION['user'])){
     require_once('./includes/sideBar.php');
 }
 ?>

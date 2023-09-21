@@ -20,8 +20,6 @@ $data = $tables->GetTablesByWorkspaceId($_GET['workspaceId']);
 
 $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
 
-//var_dump($workspaceData);
-
 ?>
 
 <?php require_once('./includes/header.php'); ?>

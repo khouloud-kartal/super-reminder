@@ -33,14 +33,13 @@ const displayError = async ($id) =>{
 
       if(responseData === 'Vous êtes connecté(e), vous allez être rédiger dans la page d\'acceuil dans 2 secondes.'){
           setTimeout(() => {
-              window.location.href = "http://http://localhost/super-reminder/src/view/index.php";
+              window.location.href = "http://localhost/super-reminder/src/view/index.php";
           }, 2000);
       }
       
       const message = document.getElementById('message');
 
-      message.innerHTML = responseData;
-        
+      message.innerHTML = responseData;        
     
 }
 
@@ -49,6 +48,8 @@ const displayLists = async () =>{
   const response = await fetch('tables.php?inscription=true', {method: "POST", body: formData});
 
   const responseData = await response.json();
+
+  const tableList = document.getElementById('tableList');
 
   tableList.innerHTML= '';
 
@@ -66,25 +67,90 @@ const displayLists = async () =>{
     const addTaskbutton = document.createElement('button');
     addTaskbutton.setAttribute('id', 'addTask');
     addTaskbutton.setAttribute('value', list.id);
+    addTaskbutton.innerText = 'Add Task';
+    addTaskbutton.setAttribute = ('name', 'showTaskForm');
 
     lists.appendChild(title);
     lists.appendChild(description);
     lists.appendChild(addTaskbutton);
   
     tableList.appendChild(lists);
+
+    addTaskbutton.addEventListener("click", ()=>{
+  
+      window.location.href = "http://localhost/super-reminder/src/view/tasks.php?listId=" + list.id;
+    })
   });
 
 }
 
-displayLists();
+
+const displayTasks = async () =>{
+  const formData = new FormData(form);
+  const response = await fetch('tasks.php?AddTask=true', {method: "POST", body: formData});
+
+  const responseData = await response.json();
+
+  const taskToDoDiv = document.getElementById('todo');
+
+  taskToDoDiv.innerHTML = '';
+
+  responseData.forEach(task => {
+
+    console.log(task)
+
+    const taskTitle = document.createElement('p');
+    taskTitle.innerHTML = task.title;
+
+    const taskDescription = document.createElement('p');
+    taskDescription.innerHTML = task.description;
+
+    const btnDiv = document.createElement('div');
+
+    const progressBtn = document.createElement('button');
+    progressBtn.setAttribute('class', 'progress');
+    progressBtn.setAttribute('value', task.id);
+    progressBtn.innerText = 'In progress';
+
+    const doneBtn = document.createElement('button');
+    doneBtn.setAttribute('class', 'done');
+    doneBtn.setAttribute('value', task.id);
+    doneBtn.innerText = 'Done';
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('class', 'delete');
+    deleteBtn.setAttribute('value', task.id);
+    deleteBtn.innerText = 'Delete';
+
+    btnDiv.appendChild(progressBtn);
+    btnDiv.appendChild(doneBtn);
+    btnDiv.appendChild(deleteBtn);
+
+    taskToDoDiv.appendChild(taskTitle);
+    taskToDoDiv.appendChild(taskDescription);
+    taskToDoDiv.appendChild(btnDiv);
+
+
+  });
+
+}             
+
+if(document.URL === 'http://localhost/super-reminder/src/view/tasks.php?listId=45'){
+  displayTasks();
+}else{
+  displayLists();
+}
+
+
 
 if (form.id) {
   form.addEventListener('submit', async(e) =>{
     e.preventDefault();
-    if(form.id === 'tables'){
-      const tableList = document.getElementById('tableList');
-      // tableList.innerHTML= '';
+    if(form.id === 'tables'){ 
       await displayLists();
+    }else if(form.id === 'tasks'){
+      e.preventDefault();
+      await displayTasks();
     }else{
       await displayError(form.id);
     }
@@ -96,6 +162,5 @@ if (form.id) {
 
 
 
-////////////////////////////////// Add A list ////////////////////
 
-const formList = document.getElementById('')
+////////////////////////////////// Add A list ////////////////////
