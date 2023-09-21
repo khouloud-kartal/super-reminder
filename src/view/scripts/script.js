@@ -33,7 +33,7 @@ const displayError = async ($id) =>{
 
       if(responseData === 'Vous êtes connecté(e), vous allez être rédiger dans la page d\'acceuil dans 2 secondes.'){
           setTimeout(() => {
-              // window.location.href = "http://localhost/github/moduleconnexion-b2/view/index.php";
+              window.location.href = "http://http://localhost/super-reminder/src/view/index.php";
           }, 2000);
       }
       
@@ -49,6 +49,8 @@ const displayLists = async () =>{
   const response = await fetch('tables.php?inscription=true', {method: "POST", body: formData});
 
   const responseData = await response.json();
+
+  tableList.innerHTML= '';
 
   responseData.forEach(list => {
 
@@ -68,7 +70,7 @@ const displayLists = async () =>{
     lists.appendChild(title);
     lists.appendChild(description);
     lists.appendChild(addTaskbutton);
-
+  
     tableList.appendChild(lists);
   });
 

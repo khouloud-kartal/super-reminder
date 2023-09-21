@@ -15,7 +15,7 @@ class TablesModel extends GlobalModel{
     }
 
     public function requestGetTablesByWorkspaceId($workspaceId){
-        $request = $this->connect->prepare("SELECT * FROM tables WHERE workspaceId = :workspaceId");
+        $request = $this->connect->prepare("SELECT * FROM tables WHERE workspaceId = :workspaceId ORDER BY id ASC");
         $request->execute([':workspaceId' => $workspaceId]);
         $data = $request->fetchAll(\PDO::FETCH_ASSOC);
         return $data;

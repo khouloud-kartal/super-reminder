@@ -9,7 +9,12 @@ session_start();
 ?>
 
 <?php require_once('./includes/header.php'); ?>
-<?php require_once('./includes/sideBar.php'); ?>
+
+<?php 
+if(isset($_SESSION)){
+    require_once('./includes/sideBar.php');
+}
+?>
 
 <main>
 

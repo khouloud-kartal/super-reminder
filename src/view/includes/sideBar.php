@@ -7,10 +7,8 @@ $table = new TablesController();
 
 $workspace = new WorkspaceController();
 
-// if(isset($_SESSION['users'])){
-    $user = $_SESSION['user'];
-    $workspaceInfos = $workspace->getAllWorkspaceDataByUserId($user->getId());
-// }
+$user = $_SESSION['user'];
+$workspaceInfos = $workspace->getAllWorkspaceDataByUserId($user->getId());
 
  
 

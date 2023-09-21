@@ -63,9 +63,4 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
             <div id="message"></div>
         </fieldset>
     </form>
-
-
-    <div id="listForm">
-        
-    </div>
 </main>
