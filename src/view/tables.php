@@ -12,7 +12,6 @@ use App\controller\WorkspaceController;
 use App\controller\TablesController;
 
 $table = new TablesController();
-
 $workspace = new WorkspaceController();
 
 $workspaceData = $workspace->getAllWorkspaceDataByUserId($user->getId());
@@ -24,6 +23,9 @@ if($_POST != NULL && isset($_GET['inscription'])){
 }
 
 ?>
+
+<?php require_once('./includes/header.php'); ?>
+<?php require_once('./includes/sideBar.php'); ?>
 
 <?php if(isset($_GET['listForm'])){ ?>
     

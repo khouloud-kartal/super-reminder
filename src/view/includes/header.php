@@ -26,7 +26,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <nav>
         <a href="index.php">Home</a>
         <?php if (!isset($_SESSION['user'])){ ?><a href="login.php">Sign In</a><?php } ?>
-        <?php if (!isset($_SESSION['user'])){ ?><a href="signup.php"><img src="css/images/inscription.png" style="width: 100px"></a><?php } ?>
+        <?php if (!isset($_SESSION['user'])){ ?><a href="signup.php"></a><?php } ?>
         <?php if (isset($_SESSION['user'])){ ?><a href="profil.php">Profil</a><?php } ?>
         <?php if (isset($_SESSION['user'])){ ?><a href="disconnect.php">Disconnect</a><?php } ?>
 

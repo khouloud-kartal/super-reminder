@@ -24,9 +24,9 @@
 <?php require_once('./includes/header.php'); ?>
 <?php require_once('./includes/sideBar.php'); ?>
     <main>
-<!--        --><?php //require_once('./includes/sideBar.php'); ?>
+           <?php //require_once('./includes/sideBar.php'); ?>
         <form action="workSpace.php" method="post" id="workSpace">
-            <fieldset>
+
                 <legend>Add a Work Space</legend>
                 <br>
                 <label for="title">Title</label>
@@ -38,7 +38,6 @@
                 <button type="submit" name="submit" value="submit" id="btableForm">Submit</button>
                 <br><br>
                 <div id="message"></div>
-            </fieldset>
         </form>
     </main>
 

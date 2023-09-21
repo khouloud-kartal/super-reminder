@@ -7,10 +7,10 @@ $table = new TablesController();
 
 $workspace = new WorkspaceController();
 
-if($_SESSION){
-    $user = $_SESSION['user'];
-    $workspaceDataById = $workspace->getAllWorkspaceDataByUserId($user->getId());
-}
+
+$user = $_SESSION['user'];
+$workspaceDataById = $workspace->getAllWorkspaceDataByUserId($user->getId());
+
     
 
 ?>
@@ -35,7 +35,7 @@ if($_SESSION){
 <!--            <a href="#" class="w3-bar-item w3-button">Link</a>-->
             </div>
         </div>
-        <a href="#" class="w3-bar-item w3-button">Link 2</a>
-        <a href="#" class="w3-bar-item w3-button">Link 3</a>
+       <!-- <a href="#" class="w3-bar-item w3-button">Link 2</a>
+        <a href="#" class="w3-bar-item w3-button">Link 3</a> -->
     </div>
 </aside>

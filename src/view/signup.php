@@ -19,11 +19,12 @@
 ?>
 
 <?php require_once('./includes/header.php'); ?>
-<?php require_once('./includes/sideBar.php'); ?>
+
     <main>
         
         <form action="signup.php" method="post" id="signup">
-            <fieldset>
+
+                <center>
                 <legend>Sign Up</legend>
                 <br>
 
@@ -47,7 +48,8 @@
                 <br><br>
 
                 <div id="message"></div>
-            </fieldset>
+                </center>
+
         </form>
     </main>
 
