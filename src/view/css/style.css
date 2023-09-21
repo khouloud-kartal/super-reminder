@@ -17,3 +17,9 @@ body {
     display: flex;
     justify-content: center;
 }
+
+
+main{
+    width: 100%;
+    padding: 0 5% 0 20%;
+}
