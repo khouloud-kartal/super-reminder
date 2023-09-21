@@ -9,8 +9,10 @@ session_start();
 ?>
 
 <?php require_once('./includes/header.php'); ?>
-<?php require_once('./includes/sideBar.php'); ?>
 
-<main>
-
+<main id="logo"> 
+    <img id="logo" src="css/images/logoo.png";>
 </main>
+
+
+

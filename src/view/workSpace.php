@@ -28,15 +28,15 @@
         <form action="workSpace.php" method="post" id="workSpace">
             <fieldset>
                 <legend>Add a Work Space</legend>
-
+                <br>
                 <label for="title">Title</label>
                 <input type="text" name="title" placeholder="Title" id="title">
-
+                <br><br>
                 <label for="description">Description</label>
                 <textarea name="description" placeholder="Description" id="description"></textarea>
-
+                <br><br>
                 <button type="submit" name="submit" value="submit" id="btableForm">Submit</button>
-                
+                <br><br>
                 <div id="message"></div>
             </fieldset>
         </form>

@@ -7,14 +7,7 @@ class GlobalModel{
     protected $connect;
 
     public function __construct(){
-        try {
-            $this->connect = new \PDO('mysql:host=localhost;dbname=todolisttrello', 'root', '');
-
-        } catch (PDOException $e) {
-            var_dump($e->getMessage()) ;
-        }
-
-        return $this->connect;
+        $this->connect = new \PDO('mysql:host=localhost;dbname=todolisttrello', 'root', 'root');
     }
 
     public function getConnect(){
