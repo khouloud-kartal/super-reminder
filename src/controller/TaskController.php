@@ -71,7 +71,7 @@ class TaskController{
     }
 
 
-    function DeleteTask($taskId){
+    public function DeleteTask($taskId){
         $request = new TaskModel();
         $result = $request->requestDeleteTask($taskId);
         return $result;

@@ -22,6 +22,23 @@ function myAccFunc() {
       x.previousElementSibling.className.replace(" w3-green", "");
     }
   }
+
+
+document.addEventListener('click', async (e)=>{
+    const target = e.target;
+  if(target.tagName === 'BUTTON'){
+    e.preventDefault();
+    // console.log(target);
+    if(target.id === 'addtaskbtn'){
+      displayTasks();
+    }else{
+      // console.log(target)
+      await changeState(target);
+      // displayTasks();
+    };
+  }
+  
+})
 ////////////////////////////////////// Display Error /////////////////////////////////
 
 const form = document.querySelector('form');
@@ -156,40 +173,32 @@ const displayTasks = async () =>{
       taskDoneDiv.innerHTML +=taskDiv
     }
 
-    const AllBtns = document.querySelectorAll('button');
-    const btns = Array.from(AllBtns).filter(button => button !== document.getElementById('addtaskbtn'));
-    btns.forEach(btn => {
-    btn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      changeState(btn);
-    })
   });
 
+}
 
+const changeState = async (btn) =>{
+    const formState = btn.parentElement;
+    const formData = new FormData(formState);
+    if (btn.className === 'delete') {
+      const response = await fetch('tasksCrudAsync.php?DeleteTask=true&taskId=' + btn.value, {method: "GET",});
+      console.log(btn.value);
+      formState.parentElement.innerHTML = '';
+  } else {
+    console.log(btn.value);
+      const response = await fetch('tasksCrudAsync.php?ChangeState=true&taskId=' + btn.value + '&state=' + btn.className, {method: "POST", body: formData});
+      const responseData = await response.text();
 
-  });
-
+      await displayTasks();
+    }
 }
 
 
 if(document.title === 'tasks'){
-  displayTasks();
-
+  displayTasks();  
 }else{
   displayLists();
 }
-
-
-
-const changeState = async (btn) =>{
-  const form = btn.parentElement;
-  const formData = new FormData(form);
-  const response = await fetch('tasksCrudAsync.php?ChangeState=true&taskId=' + btn.value + '&state=' + btn.className , {method: "POST", body: formData});
-  const responseData = await response.text();
-  console.log(responseData);
-  displayTasks();
-}
-
 
 
 if (form.id) {
@@ -198,7 +207,6 @@ if (form.id) {
     if(form.id === 'tables'){ 
       await displayLists();
     }else if(form.id === 'tasks'){
-      e.preventDefault();
       await displayTasks();
     }else{
       await displayError(form.id);

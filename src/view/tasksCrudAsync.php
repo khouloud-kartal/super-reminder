@@ -10,12 +10,8 @@ $title = 'tasks';
 
 $user = $_SESSION['user'];
 
-// use App\controller\TablesController;
-// use App\controller\WorkspaceController;
-use App\controller\TaskController;
 
-// var_dump($_GET);
-// var_dump($_SESSION['listId']);
+use App\controller\TaskController;
 
 $tasks = new TaskController();
 
@@ -30,8 +26,7 @@ if(isset($_GET['ChangeState']) && ($_GET['state'] === 'done' || $_GET['state'] =
     die();
 }
 
-if(isset($_GET['ChangeState']) && $_GET['state'] === 'delete'){
-    var_dump('test');
+if(isset($_GET['DeleteTask'])){
     $tasks->DeleteTask($_GET['taskId']);
     die();
 }

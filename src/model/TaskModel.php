@@ -37,7 +37,7 @@ class TaskModel extends GlobalModel{
         return $data;
     }
 
-    function requestDeleteTask($taskId){
+    public function requestDeleteTask($taskId){
         $request = $this->connect->prepare("DELETE FROM tasks WHERE id = :taskId");
         $request->execute([':taskId' => $taskId]);
         return $request;
