@@ -40,7 +40,7 @@ if($_POST != NULL && isset($_GET['inscription'])){
 
                 <label for="confirmNewPassword">Confirm New Password</label>
                 <input type="password" name="confirmNewPassword" id="confirmNewPassword">
-
+                <br><br>
                 <button type="submit" name="submit" value="submit">Submit</button>
                 <div id="message"></div>
 

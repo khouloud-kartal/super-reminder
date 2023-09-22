@@ -22,6 +22,7 @@ main{
     width: 100%;
 }
 
+/* centralise */
 .form-contener{
     display: flex;
     justify-content: center;
@@ -55,7 +56,7 @@ main{
     background-color: #FAF0E6;
 }
 #workSpace{
-    max-width: 430px;
+    max-width: 330px;
     padding: 20px;
     box-shadow: 0 0 6px #6b6969;
     display: flex;

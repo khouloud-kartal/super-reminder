@@ -25,20 +25,22 @@
 <?php require_once('./includes/sideBar.php'); ?>
     <main>
            <?php //require_once('./includes/sideBar.php'); ?>
-        <form action="workSpace.php" method="post" id="workSpace">
+        <div class="form-contener">
+            <form action="workSpace.php" method="post" id="workSpace">
 
-                <legend>Add a Work Space</legend>
-                <br>
+            <div Align=Center> <p> <u> Add a Work Space </u></p> </div>
+
                 <label for="title">Title</label>
                 <input type="text" name="title" placeholder="Title" id="title">
-                <br><br>
+
                 <label for="description">Description</label>
                 <textarea name="description" placeholder="Description" id="description"></textarea>
-                <br><br>
+                <br>
                 <button type="submit" name="submit" value="submit" id="btableForm">Submit</button>
-                <br><br>
+
                 <div id="message"></div>
-        </form>
+            </form>
+        </div>
     </main>
 
 </body>
