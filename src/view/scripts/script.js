@@ -92,37 +92,56 @@ const displayTasks = async () =>{
   const responseData = await response.json();
 
   const taskToDoDiv = document.getElementById('todo');
+  const taskProgressDiv = document.getElementById('progress');
 
   taskToDoDiv.innerHTML = '';
+  taskProgressDiv.innerHTML = '';
 
-  console.log(responseData);
+  // console.log(responseData);
 
   responseData.forEach(task => {
 
-    console.log(task)
+    // console.log(task)
 
     const taskDiv = `
-      <p>${task.title}</p>
-      <p>${task.description}</p> 
-      <div>
-          <button class="done" value="${task.id}">Done</button>
-          <button class="progress" value="${task.id}">In progress</button>
-          <button class="delete" value="${task.id}">delete</button>
+      <div class="task" style="background-color:${task.color};">
+        <p>${task.title}</p>
+        <p>${task.description}</p> 
+        <div>
+            <button class="done" value="${task.id}">Done</button>
+            <button class="progress" value="${task.id}">In progress</button>
+            <button class="delete" value="${task.id}">delete</button>
+        </div>
       </div>
-    `
+      `
 
-    taskToDoDiv.innerHTML += taskDiv
+    if(task.state === 'todo'){  
+      taskToDoDiv.innerHTML += taskDiv
+    }
 
+    if(task.state === 'progress'){
+    }
 
   });
 
-}   
 
+  const btns = document.querySelectorAll('button');
+  btns.forEach(btn => {
+    btn.addEventListener('click', (e)=>{
+      console.log(e.target);
+    })
+  });
 
-console.log(document.title);
+}
+
+const changeState = async (e) =>{
+  console.log(e);
+}
+
 
 if(document.title === 'tasks'){
   displayTasks();
+
 }else{
   displayLists();
 }

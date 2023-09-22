@@ -53,45 +53,21 @@ $tasks = new TaskController();
     <div>
         <h2>To Do</h2>
         <div id="todo">
-            <!-- <p>Task1</p>
-            <p>secription</p> 
-            <div>
-                <button>In progress</button>
-                <button>delete</button>
-            </div> -->
-                
+            
         </div>
     </div>
 
     <div>
         <h2>In progress</h2>
-        <!-- <ul>
-            <li>Task 1 
-                <div>
-                    <button>To Do</button>
-                    <button>Done</button>
-                    <button>delete</button>
-                </div>
-            </li>
-        </ul> -->
-        <p>Task1</p>
-        <p>secription</p> 
-        <div>
-            <button>In progress</button>
-            <button>delete</button>
+        <div id="progress">
+
         </div>
     </div>
 
     <div>
         <h2>Done</h2>
-        <ul>
-            <li>Task 1 
-                <div>
-                    <button>To Do</button>
-                    <button>In Progress</button>
-                    <button>delete</button>
-                </div>
-            </li>
-        </ul>
+        <div id="done">
+
+        </div>
     </div>
 </main>
