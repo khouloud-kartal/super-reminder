@@ -45,7 +45,7 @@ $tasks = new TaskController();
             <label for="color">Color</label>
             <input type="color" name="color">
 
-            <button type="submit" name="submit" value="submit">Add</button>
+            <button type="submit" name="submit" value="submit" id="addtaskbtn">Add</button>
         </fieldset>
 
 

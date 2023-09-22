@@ -93,9 +93,11 @@ const displayTasks = async () =>{
 
   const taskToDoDiv = document.getElementById('todo');
   const taskProgressDiv = document.getElementById('progress');
+  const taskDoneDiv = document.getElementById('done');
 
   taskToDoDiv.innerHTML = '';
   taskProgressDiv.innerHTML = '';
+  taskDoneDiv.innerHTML = '';
 
   // console.log(responseData);
 
@@ -103,39 +105,70 @@ const displayTasks = async () =>{
 
     // console.log(task)
 
-    const taskDiv = `
+    if(task.state === 'todo'){ 
+
+      const taskDiv = `
       <div class="task" style="background-color:${task.color};">
         <p>${task.title}</p>
-        <p>${task.description}</p> 
-        <div>
+        <p>${task.description}</p>
+        <form action="tasksCrudAsync" method="POST" id="${task.id}">
             <button class="done" value="${task.id}">Done</button>
             <button class="progress" value="${task.id}">In progress</button>
             <button class="delete" value="${task.id}">delete</button>
-        </div>
+        </form>
       </div>
       `
 
-    if(task.state === 'todo'){  
       taskToDoDiv.innerHTML += taskDiv
     }
 
     if(task.state === 'progress'){
+
+      const taskDiv = `
+      <div class="task" style="background-color:${task.color};">
+        <p>${task.title}</p>
+        <p>${task.description}</p>
+        <form action="tasksCrudAsync" method="POST" id="${task.id}">
+            <button class="done" value="${task.id}">Done</button>
+            <button class="todo" value="${task.id}">To Do</button>
+            <button class="delete" value="${task.id}">delete</button>
+        </form>
+      </div>
+      `
+
+      taskProgressDiv.innerHTML +=taskDiv
     }
 
-  });
+    if(task.state === 'done'){
 
+      const taskDiv = `
+      <div class="task" style="background-color:${task.color};">
+        <p>${task.title}</p>
+        <p>${task.description}</p>
+        <form action="tasksCrudAsync" method="POST" id="${task.id}">
+            <button class="progress" value="${task.id}">In progress</button>
+            <button class="todo" value="${task.id}">To Do</button>
+            <button class="delete" value="${task.id}">delete</button>
+        </form>
+      </div>
+      `
 
-  const btns = document.querySelectorAll('button');
-  btns.forEach(btn => {
+      taskDoneDiv.innerHTML +=taskDiv
+    }
+
+    const AllBtns = document.querySelectorAll('button');
+    const btns = Array.from(AllBtns).filter(button => button !== document.getElementById('addtaskbtn'));
+    btns.forEach(btn => {
     btn.addEventListener('click', (e)=>{
-      console.log(e.target);
+      e.preventDefault();
+      changeState(btn);
     })
   });
 
-}
 
-const changeState = async (e) =>{
-  console.log(e);
+
+  });
+
 }
 
 
@@ -144,6 +177,17 @@ if(document.title === 'tasks'){
 
 }else{
   displayLists();
+}
+
+
+
+const changeState = async (btn) =>{
+  const form = btn.parentElement;
+  const formData = new FormData(form);
+  const response = await fetch('tasksCrudAsync.php?ChangeState=true&taskId=' + btn.value + '&state=' + btn.className , {method: "POST", body: formData});
+  const responseData = await response.text();
+  console.log(responseData);
+  displayTasks();
 }
 
 

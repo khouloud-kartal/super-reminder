@@ -33,8 +33,20 @@ class TaskController{
         return true;
 
     }
+
+    private function checkTask($title){
+        $user = new TaskModel();
+        $count = $user->requestCheckTask($title);
+
+        if($count < 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function addTask($post, $listId){
-        if($this->checkFormNotEmpty($post)){
+        if($this->checkFormNotEmpty($post) && $this->checkTask($_POST['title'])){
             $request = new TaskModel();
             $request->requestAddTask($post['title'], $post['description'], $post['color'], $listId);
             $this->msg = '<p>Task is added</p>';
@@ -50,6 +62,19 @@ class TaskController{
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
         return $json;
+    }
+
+    public function updateState($taskId, $state){
+        $request = new TaskModel();
+        $result = $request->requestUpdateState($taskId, $state);
+        return $result;
+    }
+
+
+    function DeleteTask($taskId){
+        $request = new TaskModel();
+        $result = $request->requestDeleteTask($taskId);
+        return $result;
     }
 
     
