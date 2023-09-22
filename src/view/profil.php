@@ -23,7 +23,7 @@ if($_POST != NULL && isset($_GET['inscription'])){
     <main>
         <form action="profil.php" method="post" id="profil">
 
-            <legend>Profil</legend>
+            <u>Profil</u>
             <br><br>
             <label for="login">Login</label>
             <input type="text" name="login" id="login" value="<?= $user->getLogin() ?>">

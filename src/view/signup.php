@@ -24,8 +24,7 @@
         
         <form action="signup.php" method="post" id="signup">
 
-                <center>
-                <legend>Sign Up</legend>
+                <u>Sign Up</u>
                 <br>
 
                 <label for="login">Login</label>
@@ -48,7 +47,6 @@
                 <br><br>
 
                 <div id="message"></div>
-                </center>
 
         </form>
     </main>

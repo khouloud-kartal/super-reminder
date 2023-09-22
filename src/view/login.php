@@ -20,10 +20,9 @@ if($_POST != null && isset($_GET['inscription'])){
     <main>
         <form action="login.php" method="post" id="login">
            
-            <center>
-                <legend>Sign In</legend>
-                <br>
-                <label for="email">Email</label>
+                <u>Sign In</u>
+                <br><br>
+                <label for="email">Email</label> 
                 <input type="email" name="email" id="email">
                 <br><br>
 
@@ -33,12 +32,12 @@ if($_POST != null && isset($_GET['inscription'])){
                 <button type="submit" name="submit" value="submit">Submit</button>
                 <br>
                 <div id="message"></div>
-            </center>
                 <br>
-            <center>
-                <button type="submit" name="Inscription" value="Inscription">Inscription</button>
-            </center>
         </form>
+        
+        <center> 
+        <button type="submit" name="Inscription" value="Inscription">Inscription</button>
+        </center>
     </main>
 </body>
 </html>

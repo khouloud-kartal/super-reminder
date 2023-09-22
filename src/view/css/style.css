@@ -9,7 +9,7 @@ body {
     color: black; 
 }
 
-
+/* gere position et taille */
 #logo{
     width: -100%;
     height: -100vh;
@@ -24,7 +24,18 @@ main{
     padding: 0 5% 0 20%;
 }
 
+
 /* gere les fond et la position */
+#login{
+    max-width: 430px;
+    margin: 200px auto;
+    box-shadow: 0 0 6px #6b6969;
+}
+#signup{
+    max-width: 430px;
+    margin: 200px auto;
+    box-shadow: 0 0 6px #6b6969;
+}
 #profil{
     max-width: 430px;
     margin: 100px auto;
@@ -35,5 +46,7 @@ main{
     margin: 200px auto;
     box-shadow: 0 0 6px #6b6969;
 }
+
+
 
 
