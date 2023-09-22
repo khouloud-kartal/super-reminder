@@ -24,24 +24,22 @@ $data = $tables->GetTablesByWorkspaceId($_GET['workspaceId']);
 <?php require_once('./includes/sideBar.php'); ?>
 
 <main>
-    <div id="tableList">
-        <?php if($workspaceData){ foreach ($data as $table){?>
-        <div class="table" style="border: 2px solid black">
-            <p>Title: <?= $table['title'] ?></p>
-            <p>Description: <?= $table['description'] ?></p>
-            <button id="addTask" value="<?= $table['id'] ?>">Add Task</button>
+<div id="tableList">
+
+    </div>
+        <div class="form-contener">
+            <form action="tables.php" method="post" id="tables">
+                <p><u>Add a List</u></p>
+
+                <label for="title">Title</label>
+                <input type="text" name="title" placeholder="Title" id="title">
+
+                <label for="description">Description</label>
+                <textarea name="description" placeholder="Description" id="description"></textarea>
+                    <br>
+                <button type="submit" name="submit" value="submit" id="btableForm">Add</button>
+
+                <div id="message"></div>
+            </form>
         </div>
-
-        <a href="./tables.php" class="w3-bar-item w3-button"><button id="addListBtn">Add a List</button></a>
-
-        <?php }}else{?>
-        <p>This Work Space does not belong to you</p>
-
-        <?php }?>
-        
-    </div>
-
-    <div id="listForm">
-        
-    </div>
 </main>
