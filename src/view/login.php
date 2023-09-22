@@ -18,26 +18,28 @@ if($_POST != null && isset($_GET['inscription'])){
 
 <?php require_once('./includes/header.php'); ?>
     <main>
-        <form action="login.php" method="post" id="login">
-           
-                <u>Sign In</u>
-                <br><br>
+        <div class="form-contener">
+            <form action="login.php" method="post" id="login">
+
+                <FONT size="5pt">
+                <div Align=Center><p><u>Sign In</u></p> </div>
+
                 <label for="email">Email</label> 
                 <input type="email" name="email" id="email">
-                <br><br>
 
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
-                <br><br>
-                <button type="submit" name="submit" value="submit">Submit</button>
-                <br>
-                <div id="message"></div>
-                <br>
-        </form>
-        
-        <center> 
-        <button type="submit" name="Inscription" value="Inscription">Inscription</button>
-        </center>
+                <input type="password" name="password" id="password"></FONT>
+
+                <br> 
+                <FONT size="5pt">
+                <div Align=Center> <button type="submit" name="submit" value="submit">Submit</button> </div>
+                <div id="message"></div></FONT>
+            
+                <!-- <button type="submit" name="Inscription" value="Inscription">Inscription</button> METTRE UN LIEN A LA PLACE -->
+            </form>
+        </div>
+
+
     </main>
 </body>
 </html>
