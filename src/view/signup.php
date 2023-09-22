@@ -8,6 +8,8 @@
     
     $user = new UserController();
 
+    $title = 'signup';
+
     if($_POST != NULL && isset($_GET['inscription'])){
         $user->Register($_POST);
         echo $user->getMsg();

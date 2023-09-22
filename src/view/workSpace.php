@@ -6,6 +6,8 @@
 
     session_start();
 
+    $title = 'workspace';
+
     $user = $_SESSION['user'];
 
     use App\controller\WorkspaceController;

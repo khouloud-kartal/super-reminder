@@ -8,6 +8,8 @@ require_once('../../autoloader.php');
 
 session_start();
 
+$title = 'login';
+
 if($_POST != null && isset($_GET['inscription'])){
     $connect = new UserController();
     $connect->Connect($_POST);

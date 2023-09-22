@@ -7,6 +7,8 @@ use App\controller\UserController;
 
 session_start();
 
+$title = 'profil';
+
 $user = $_SESSION['user'];
 
 if($_POST != NULL && isset($_GET['inscription'])){

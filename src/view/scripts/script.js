@@ -87,7 +87,7 @@ const displayLists = async () =>{
 
 const displayTasks = async () =>{
   const formData = new FormData(form);
-  const response = await fetch('tasks.php?AddTask=true', {method: "POST", body: formData});
+  const response = await fetch('tasksCrudAsync.php?AddTask=true', {method: "POST", body: formData});
 
   const responseData = await response.json();
 
@@ -95,47 +95,33 @@ const displayTasks = async () =>{
 
   taskToDoDiv.innerHTML = '';
 
+  console.log(responseData);
+
   responseData.forEach(task => {
 
     console.log(task)
 
-    const taskTitle = document.createElement('p');
-    taskTitle.innerHTML = task.title;
+    const taskDiv = `
+      <p>${task.title}</p>
+      <p>${task.description}</p> 
+      <div>
+          <button class="done" value="${task.id}">Done</button>
+          <button class="progress" value="${task.id}">In progress</button>
+          <button class="delete" value="${task.id}">delete</button>
+      </div>
+    `
 
-    const taskDescription = document.createElement('p');
-    taskDescription.innerHTML = task.description;
-
-    const btnDiv = document.createElement('div');
-
-    const progressBtn = document.createElement('button');
-    progressBtn.setAttribute('class', 'progress');
-    progressBtn.setAttribute('value', task.id);
-    progressBtn.innerText = 'In progress';
-
-    const doneBtn = document.createElement('button');
-    doneBtn.setAttribute('class', 'done');
-    doneBtn.setAttribute('value', task.id);
-    doneBtn.innerText = 'Done';
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', 'delete');
-    deleteBtn.setAttribute('value', task.id);
-    deleteBtn.innerText = 'Delete';
-
-    btnDiv.appendChild(progressBtn);
-    btnDiv.appendChild(doneBtn);
-    btnDiv.appendChild(deleteBtn);
-
-    taskToDoDiv.appendChild(taskTitle);
-    taskToDoDiv.appendChild(taskDescription);
-    taskToDoDiv.appendChild(btnDiv);
+    taskToDoDiv.innerHTML += taskDiv
 
 
   });
 
-}             
+}   
 
-if(document.URL === 'http://localhost/super-reminder/src/view/tasks.php?listId=45'){
+
+console.log(document.title);
+
+if(document.title === 'tasks'){
   displayTasks();
 }else{
   displayLists();

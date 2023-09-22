@@ -6,6 +6,8 @@ require_once('../../autoloader.php');
 
 session_start();
 
+$title = 'home';
+
 ?>
 
 <?php require_once('./includes/header.php'); ?>

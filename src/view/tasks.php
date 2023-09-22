@@ -6,6 +6,8 @@ require_once('../../autoloader.php');
 
 session_start();
 
+$title = 'tasks';
+
 $user = $_SESSION['user'];
 
 // use App\controller\TablesController;
@@ -13,19 +15,16 @@ $user = $_SESSION['user'];
 use App\controller\TaskController;
 
 
-if($_SESSION['listId'] === null){
-
-    $_SESSION['listId'] = $_GET['listId'];
-}
+$_SESSION['listId'] = $_GET['listId'];
 
 $tasks = new TaskController();
 
-if($_POST != NULL && isset($_GET['AddTask'])){
+// if($_POST != NULL && isset($_GET['AddTask'])){
 
-    $tasks->addTask($_POST, $_SESSION['listId']);
-    echo $tasks->getAllTasksJson($_SESSION['listId']);
-    die();
-}
+//     $tasks->addTask($_POST, $_SESSION['listId']);
+//     echo $tasks->getAllTasksJson($_SESSION['listId']);
+//     die();
+// }
 
 
 ?>
@@ -33,7 +32,7 @@ if($_POST != NULL && isset($_GET['AddTask'])){
 <?php require_once('./includes/header.php'); ?>
 
 <main>
-    <form action="tasks.php" method="post" id="tasks">
+    <form action="tasksCrudAsync.php" method="post" id="tasks">
         <fieldset>
             <legend>Add a task</legend>
 
