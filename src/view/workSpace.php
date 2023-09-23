@@ -37,7 +37,7 @@
                 <label for="description">Description</label>
                 <textarea name="description" placeholder="Description" id="description"></textarea>
 
-                <button type="submit" name="submit" value="submit" id="btableForm">Submit</button>
+                <button type="submit" name="submit" value="submit" id="bworkspaceForm">Submit</button>
                 
                 <div id="message"></div>
             </fieldset>
