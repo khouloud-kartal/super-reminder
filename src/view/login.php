@@ -10,6 +10,9 @@ session_start();
 
 $title = 'login';
 
+var_dump($_POST);
+
+
 if($_POST != null && isset($_GET['inscription'])){
     $connect = new UserController();
     $connect->Connect($_POST);
