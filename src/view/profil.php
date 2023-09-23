@@ -21,13 +21,13 @@ if($_POST != NULL && isset($_GET['inscription'])){
 ?>
 
 <?php require_once('./includes/header.php'); ?>
-    <main>
+    <main id="profilPage">
         <form action="profil.php" method="post" id="profil">
             <fieldset>
                 <legend>Profil</legend>
 
                 <label for="login">Login</label>
-                <input type="text" name="login" id="login" value="<?= $user->getLogin() ?>">
+                <input type="text" name="login" value="<?= $user->getLogin() ?>">
 
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" value="<?= $user->getEmail() ?>">

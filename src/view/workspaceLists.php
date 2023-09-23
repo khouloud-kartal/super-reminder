@@ -27,9 +27,6 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
 <?php require_once('./includes/header.php'); ?>
 
 <main>
-    <div id="tableList">
-
-    </div>
 
     <form action="tables.php" method="post" id="tables">
         <fieldset>
@@ -46,4 +43,8 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
             <div id="message"></div>
         </fieldset>
     </form>
+    <div id="tableList">
+
+    </div>
+
 </main>

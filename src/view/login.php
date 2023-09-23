@@ -21,6 +21,7 @@ if($_POST != null && isset($_GET['inscription'])){
 
 <?php require_once('./includes/header.php'); ?>
 <main id="loginPage">
+
     <form action="login.php" method="post" id="login">
         <fieldset>
             <legend>Sign In</legend>

@@ -21,14 +21,14 @@
 ?>
 
 <?php require_once('./includes/header.php'); ?>
-    <main>
+    <main id="signupPage">
         
         <form action="signup.php" method="post" id="signup">
             <fieldset>
                 <legend>Sign Up</legend>
 
                 <label for="login">Login</label>
-                <input type="text" name="login" placeholder="login" id="login">
+                <input type="text" name="login" placeholder="login">
 
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email">

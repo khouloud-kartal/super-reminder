@@ -143,10 +143,93 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 }
 
 
-form{
-    margin-top: 60px;
+#loginPage, #signupPage, #profilPage{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+#profilPage, #workspacePage{
+    margin-top: 70px;
+}
+
+#workspacePage{
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+
+#workSpacesDiv{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.workspaceEach a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.workspaceEach{
+    border: 2px solid black;
+    width: 150px;
+    
+}
+
+#login, #signup, #profil, #workSpace{
+    width: 350px;
+    
+}
+
+legend{
+    font-size: 1.5em;
+    color: #FC466B;
+}
+
+fieldset{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid transparent; 
+    border-image: linear-gradient(180deg, #FC466B 0%, #3F5EFB 100%);
+    border-image-slice: 1;
+    padding-top: 30px;
+}
+
+fieldset input{
+    width: 90%;
+    margin : 10px 0 20px 5%;
+    height: 40px;
+    font-size: 1.2em;
+}
+
+fieldset label{
+    margin-left: 5%;
+    font-size: 1.3em;
+}
+
+fieldset button{
+    width: 40%;
+    height: 35px;
+    margin-left: 30%;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+    font-size: 1.1em;
+    color: white;
+    background-color: #FC466B;
+}
+
+fieldset button:hover{
+    background-color: #3F5EFB;
+}
+
+#message{
+    text-align: center;
+}
 
 
 

@@ -31,9 +31,8 @@
 
 <?php require_once('./includes/header.php'); ?>
 
-    <main>
+    <main id="workspacePage">
 
-    </div>
         <form action="workSpace.php" method="post" id="workSpace">
             <fieldset>
                 <legend>Add a Work Space</legend>
@@ -48,6 +47,7 @@
                 
             </fieldset>
         </form>
+    <h2>My Work Spaces</h2>
         
     <div id="workSpacesDiv"></div>
 

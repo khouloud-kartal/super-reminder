@@ -204,8 +204,9 @@ const displayWorkSpace = async (e) =>{
     const workspaceList = `
     <div class="workspaceEach">
       <a href="./workspaceLists.php?workspaceId=${workspace.id}&workspaceTitle=${workspace.title}"><p>${workspace.title}</p></a>
+      <p>${workspace.description}</p>
       <form action="workSpace.php" method="GET">
-          <button type="submit" name="Delete" id="${workspace.id}">Delete</button>
+          <button type="submit" name="Delete" id="${workspace.id}">X</button>
       </form>
     </div>
     `
@@ -213,7 +214,8 @@ const displayWorkSpace = async (e) =>{
 
   });
 
-  const btns = document.querySelectorAll('button');
+  const buttons = document.querySelectorAll('button');
+  const btns = Array.from(buttons).filter(button => button.id !== 'bworkspaceForm');
   btns.forEach(btn => {
     btn.addEventListener('click', (e)=>{
       e.preventDefault();
@@ -254,9 +256,12 @@ const deleteList = async (btn) =>{
 
 const deleteWorkspace = async (btn) =>{
   const formState = btn.parentElement;
+  console.log(formState.parentElement);
   const formData = new FormData(formState);
   const response = await fetch('workSpace.php?DeleteWorkSpace=true&workspaceId=' + btn.id, {method: "GET",});
+  formState.parentElement.style.display = 'none';
   formState.parentElement.innerHTML = '';
+  
 }
 
 

@@ -21,6 +21,7 @@ if (session_status() == PHP_SESSION_NONE) {
 </head>
 <body>
 
+
 <div class="header"></div>
   <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
   <label for="openSidebarMenu" class="sidebarIconToggle">
