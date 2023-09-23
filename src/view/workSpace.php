@@ -14,9 +14,15 @@
     
     $workspace = new WorkspaceController();
 
-     if($_POST != NULL && isset($_GET['inscription'])){
+    if($_POST != NULL && isset($_GET['display'])){
         $workspace->addWorkspace($_POST, $user->getId());
-        echo $workspace->getMsg();
+        $workspaceList = $workspace->getAllWorkspaceDataByUserId($user->getId());
+        echo $workspaceList;
+        die();
+    }
+
+    if(isset($_GET['DeleteWorkSpace'])){
+        $workspace->DeleteWorkspace($_GET['workspaceId']);
         die();
     }
 
@@ -24,9 +30,10 @@
 ?>
 
 <?php require_once('./includes/header.php'); ?>
-<?php require_once('./includes/sideBar.php'); ?>
+
     <main>
-<!--        --><?php //require_once('./includes/sideBar.php'); ?>
+
+    </div>
         <form action="workSpace.php" method="post" id="workSpace">
             <fieldset>
                 <legend>Add a Work Space</legend>
@@ -39,10 +46,14 @@
 
                 <button type="submit" name="submit" value="submit" id="bworkspaceForm">Submit</button>
                 
-                <div id="message"></div>
             </fieldset>
         </form>
+        
+    <div id="workSpacesDiv"></div>
+
     </main>
+
+    
 
 </body>
 </html>

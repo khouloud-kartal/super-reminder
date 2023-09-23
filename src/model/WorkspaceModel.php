@@ -15,7 +15,7 @@ class WorkspaceModel extends GlobalModel{
     }
 
     public function requestGetWorkspaceByUserId($userId){
-        $request = $this->connect->prepare("SELECT id, userId, title FROM workspace WHERE userId = :userId");
+        $request = $this->connect->prepare("SELECT id, userId, title, description FROM workspace WHERE userId = :userId");
         $request->execute([':userId' => $userId]);
         $data = $request->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
@@ -38,5 +38,13 @@ class WorkspaceModel extends GlobalModel{
             return true;
         }
     }
+
+
+    public function requestDeleteWorkspace($workspaceId){
+        $request = $this->connect->prepare("DELETE FROM workspace WHERE id = :workspaceId");
+        $request->execute([':workspaceId' => $workspaceId]);
+        return $request;
+    }
+
 
 }

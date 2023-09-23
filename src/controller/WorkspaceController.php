@@ -42,7 +42,9 @@ class WorkspaceController{
     public function getAllWorkspaceDataByUserId($userId){
         $request = new WorkspaceModel();
         $data = $request->requestGetWorkspaceByUserId($userId);
-        return $data;
+        $json = json_encode($data, JSON_PRETTY_PRINT);
+
+        return $json;
     }
 
     public function checkTablesExists($userId, $workspaceId){
@@ -50,6 +52,14 @@ class WorkspaceController{
         $data = $request->requestCheckTablesExists($userId, $workspaceId);
         return $data;
     }
+
+    public function DeleteWorkspace($workspaceId){
+        $request = new WorkspaceModel();
+        $result = $request->requestDeleteWorkspace($workspaceId);
+        return $result;
+    }
+
+    
 
     ##################################################################################
     ######################################## Getters #################################

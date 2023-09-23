@@ -1,44 +1,34 @@
+////////////////////////////////////// SideBar /////////////////////////////////
+
 
 function myAccFunc() {
-    var x = document.getElementById("demoAcc");
-    if (x.className.indexOf("w3-show") == -1) {
-      x.className += " w3-show";
-      x.previousElementSibling.className += " w3-green";
-    } else { 
-      x.className = x.className.replace(" w3-show", "");
-      x.previousElementSibling.className = 
-      x.previousElementSibling.className.replace(" w3-green", "");
-    }
+  var x = document.getElementById("demoAcc");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-green";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className = 
+    x.previousElementSibling.className.replace(" w3-green", "");
   }
-  
-  function myDropFunc() {
-    var x = document.getElementById("demoDrop");
-    if (x.className.indexOf("w3-show") == -1) {
-      x.className += " w3-show";
-      x.previousElementSibling.className += " w3-green";
-    } else { 
-      x.className = x.className.replace(" w3-show", "");
-      x.previousElementSibling.className = 
-      x.previousElementSibling.className.replace(" w3-green", "");
-    }
+}
+
+function myDropFunc() {
+  var x = document.getElementById("demoDrop");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-green";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className = 
+    x.previousElementSibling.className.replace(" w3-green", "");
   }
+}
 
 
-document.addEventListener('click', async (e)=>{
-    const target = e.target;
-  if(target.tagName === 'BUTTON'){
-    e.preventDefault();
-    // console.log(target);
-    if(target.id === 'addtaskbtn'){
-      displayTasks();
-    }else{
-      // console.log(target)
-      await changeState(target);
-      // displayTasks();
-    };
-  }
-  
-})
+
+
+
 ////////////////////////////////////// Display Error /////////////////////////////////
 
 const form = document.querySelector('form');
@@ -72,33 +62,43 @@ const displayLists = async () =>{
 
   responseData.forEach(list => {
 
-    const lists = document.createElement('div');
-    lists.setAttribute('class', 'list');
+    const classList = `
+    <div class="list">
+      <p>${list.title}</p>
+      <p>${list.description}</p>
+      <button class="addTask" value="${list.id}">Add Task</button>
+      <form action="workSpace.php" method="GET" id="${list.id}">
+        <button class="delete" value="${list.id}">Delete</button>
+      </form>
+    </div>
     
-    const title = document.createElement('p');
-    title.innerHTML = list.title;
-    
-    const description = document.createElement('p');
-    description.innerHTML = list.description;
+    `
 
-    const addTaskbutton = document.createElement('button');
-    addTaskbutton.setAttribute('id', 'addTask');
-    addTaskbutton.setAttribute('value', list.id);
-    addTaskbutton.innerText = 'Add Task';
-    addTaskbutton.setAttribute = ('name', 'showTaskForm');
+    tableList.innerHTML += classList;
 
-    lists.appendChild(title);
-    lists.appendChild(description);
-    lists.appendChild(addTaskbutton);
-  
-    tableList.appendChild(lists);
 
-    addTaskbutton.addEventListener("click", ()=>{
-  
-      window.location.href = "http://localhost/super-reminder/src/view/tasks.php?listId=" + list.id;
+  });
+
+  const addTaskBtn = document.querySelectorAll('.addTask'); 
+  addTaskBtn.forEach(btn => {
+    btn.addEventListener("click", ()=>{
+
+    window.location.href = "http://localhost/super-reminder/src/view/tasks.php?listId=" + btn.value;
     })
   });
 
+
+  const Btns = document.querySelectorAll('.delete');
+  Btns.forEach(btns => {
+    console.log(btns)
+    btns.addEventListener('click', (e)=>{
+      e.preventDefault();
+      console.log(btns)
+      deleteList(btns);
+    })
+  });
+
+  
 }
 
 
@@ -175,9 +175,56 @@ const displayTasks = async () =>{
 
   });
 
+  const buttons = document.querySelectorAll('button');
+  const btns = Array.from(buttons).filter(button => button.id !== 'addtaskbtn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      changeState(btn);
+    })
+  });
+
+
+
+}
+
+
+const displayWorkSpace = async (e) =>{
+  const formData = new FormData(form);
+  const response = await fetch('workSpace.php?display=true', {method: "POST", body: formData});
+  const responseData = await response.json();
+
+  const workspaceDiv = document.getElementById('workSpacesDiv');
+  workspaceDiv.innerHTML = '';
+
+  responseData.forEach(workspace => {
+
+
+    console.log(workspace)
+    const workspaceList = `
+    <div class="workspaceEach">
+      <a href="./workspaceLists.php?workspaceId=${workspace.id}&workspaceTitle=${workspace.title}"><p>${workspace.title}</p></a>
+      <form action="workSpace.php" method="GET">
+          <button type="submit" name="Delete" id="${workspace.id}">Delete</button>
+      </form>
+    </div>
+    `
+    workspaceDiv.innerHTML += workspaceList;
+
+  });
+
+  const btns = document.querySelectorAll('button');
+  btns.forEach(btn => {
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      console.log(btn);
+      deleteWorkspace(btn);
+    })
+  });
+
+
 
   
-
 }
 
 const changeState = async (btn) =>{
@@ -197,12 +244,33 @@ const changeState = async (btn) =>{
 }
 
 
+const deleteList = async (btn) =>{
+  const formState = btn.parentElement;
+  const formData = new FormData(formState);
+  const response = await fetch('tables.php?DeleteList=true&listId=' + btn.value, {method: "GET",});
+  console.log(btn.value);
+  formState.parentElement.innerHTML = '';
+}
+
+const deleteWorkspace = async (btn) =>{
+  const formState = btn.parentElement;
+  const formData = new FormData(formState);
+  const response = await fetch('workSpace.php?DeleteWorkSpace=true&workspaceId=' + btn.id, {method: "GET",});
+  formState.parentElement.innerHTML = '';
+}
+
+
+
+
 if(document.title === 'tasks'){
   displayTasks();  
+}else if(document.title === 'workspace'){
+  displayWorkSpace();
 }else{
   displayLists();
 }
 
+console.log(form.id);
 
 if (form.id) {
   form.addEventListener('submit', async(e) =>{
@@ -211,6 +279,8 @@ if (form.id) {
       await displayLists();
     }else if(form.id === 'tasks'){
       await displayTasks();
+    }else if(form.id === 'workSpace'){
+      await displayWorkSpace();
     }else{
       await displayError(form.id);
     }

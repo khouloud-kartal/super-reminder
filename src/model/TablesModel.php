@@ -21,4 +21,10 @@ class TablesModel extends GlobalModel{
         return $data;
     }
 
+    public function requestDeleteList($listId){
+        $request = $this->connect->prepare("DELETE FROM tables WHERE id = :listId");
+        $request->execute([':listId' => $listId]);
+        return $request;
+    }
+
 }

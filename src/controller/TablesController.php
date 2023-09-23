@@ -53,6 +53,14 @@ class TablesController{
         return $json;
     }
 
+
+    public function DeleteList($listId){
+        $request = new TablesModel();
+        $result = $request->requestDeleteList($listId);
+        return $result;
+    }
+
+
     ##################################################################################
     ######################################## Getters #################################
     ##################################################################################

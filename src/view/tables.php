@@ -25,3 +25,10 @@ if($_POST != NULL && isset($_GET['inscription'])){
 }
 
 
+if(isset($_GET['DeleteList'])){
+    $table->DeleteList($_GET['listId']);
+    die();
+}
+
+
+
