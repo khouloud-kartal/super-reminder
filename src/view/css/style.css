@@ -34,6 +34,7 @@ main{
 #login{
     max-width: 330px;
     box-shadow: 0 0 10px #6b6969;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     background-color: #FAF0E6;
