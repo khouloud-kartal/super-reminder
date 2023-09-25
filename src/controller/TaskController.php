@@ -48,7 +48,7 @@ class TaskController{
     public function addTask($post, $listId){
         if($this->checkFormNotEmpty($post) && $this->checkTask($_POST['title'])){
             $request = new TaskModel();
-            $request->requestAddTask($post['title'], $post['description'], $post['color'], $listId);
+            $request->requestAddTask($post['title'], $post['description'], $post['color'], $post['finDate'], $listId);
             $this->msg = '<p>Task is added</p>';
         }else{
             $this->msg = '<p>remplir tous les champs</p>';
@@ -77,6 +77,25 @@ class TaskController{
         return $result;
     }
 
+
+    public function addTags($post, $userId){
+        if($this->checkFormNotEmpty($post)){
+            $request = new TaskModel();
+            $request->requestAddTags($post['name'], $post['emoji'], $userId);
+            $this->msg = '<p>Tag is added</p>';
+        }else{
+            $this->msg = '<p>remplir tous les champs</p>';
+        }
+
+    }
+
+    public function getAllTagsJson($userId){
+        $request = new TaskModel();
+        $data = $request->requestGetTagsByUserId($userId);
+        $json = json_encode($data, JSON_PRETTY_PRINT);
+
+        return $json;
+    }
     
 
     ##################################################################################

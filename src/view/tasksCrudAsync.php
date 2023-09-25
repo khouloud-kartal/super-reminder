@@ -30,3 +30,9 @@ if(isset($_GET['DeleteTask'])){
     $tasks->DeleteTask($_GET['taskId']);
     die();
 }
+
+if($_POST != NULL && isset($_GET['display'])){
+    $tasks->addTags($_POST, $user->getId());
+    echo $tasks->getAllTagsJson($user->getId());
+    die();
+}

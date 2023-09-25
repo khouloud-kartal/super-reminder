@@ -4,12 +4,13 @@ namespace App\model;
 
 class TaskModel extends GlobalModel{
 
-    public function requestAddTask($title, $description, $color, $listId){
-        $request = $this->connect->prepare("INSERT INTO tasks (listId, title, description, color) VALUES (:listId, :title, :description, :color)");
+    public function requestAddTask($title, $description, $color, $finDate, $listId){
+        $request = $this->connect->prepare("INSERT INTO tasks (listId, title, description, color, finDate) VALUES (:listId, :title, :description, :color, :finDate)");
         $request->execute([':listId' => $listId,
                             ':title' => $title,
                             ':description' => $description,
-                            ':color' => $color
+                            ':color' => $color,
+                            ':finDate' => $finDate
         ]);
 
         return $request;
@@ -43,5 +44,21 @@ class TaskModel extends GlobalModel{
         return $request;
     }
 
+    public function requestAddTags($name, $emoji, $userId){
+        $request = $this->connect->prepare("INSERT INTO tags (userId, name, emoji) VALUES (:userId, :name, :emoji)");
+        $request->execute([':userId' => $userId,
+                            ':name' => $name,
+                            ':emoji' => $emoji
+        ]);
+
+        return $request;
+    }
+
+    public function requestGetTagsByUserId($userId){
+        $request = $this->connect->prepare("SELECT * FROM tags WHERE userId = :userId ORDER BY id DESC");
+        $request->execute([':userId' => $userId]);
+        $data = $request->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
 
 }

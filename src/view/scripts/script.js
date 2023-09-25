@@ -26,6 +26,17 @@ function myDropFunc() {
 }
 
 
+// // JavaScript to show the pop-up
+// document.getElementById("openPopup").addEventListener("click", function() {
+//   document.getElementById("popupContainer").style.display = "block";
+// });
+
+// // JavaScript to close the pop-up
+// document.getElementById("closePopup").addEventListener("click", function() {
+//   document.getElementById("popupContainer").style.display = "none";
+// });
+
+
 
 
 
@@ -66,9 +77,9 @@ const displayLists = async () =>{
     <div class="list">
       <p>${list.title}</p>
       <p>${list.description}</p>
-      <button class="addTask" value="${list.id}">Add Task</button>
+      <button class="addTask" value="${list.id}">+</button>
       <form action="workSpace.php" method="GET" id="${list.id}">
-        <button class="delete" value="${list.id}">Delete</button>
+        <button class="delete" value="${list.id}">x</button>
       </form>
     </div>
     
@@ -120,18 +131,28 @@ const displayTasks = async () =>{
 
   responseData.forEach(task => {
 
+    const composantes = task.finDate.split("-");
+
+    // Obtenir le jour, le mois et l'année
+    const annee = composantes[0];
+    const mois = composantes[1];
+    const jour = composantes[2];
+
+    // Formater la date au format "jj/mm/aaaa"
+    const dateFormatee = `${jour}/${mois}/${annee}`;
     // console.log(task)
 
-    if(task.state === 'todo'){ 
+    if(task.state === 'todo'){
 
       const taskDiv = `
-      <div class="task" style="background-color:${task.color};">
+      <div class="task" style="border: 3px solid ${task.color};">
         <p>${task.title}</p>
         <p>${task.description}</p>
+        <p>${dateFormatee}</p>
         <form action="tasksCrudAsync" method="POST" id="${task.id}">
             <button class="done" value="${task.id}">Done</button>
             <button class="progress" value="${task.id}">In progress</button>
-            <button class="delete" value="${task.id}">delete</button>
+            <button class="delete" value="${task.id}">X</button>
         </form>
       </div>
       `
@@ -142,13 +163,13 @@ const displayTasks = async () =>{
     if(task.state === 'progress'){
 
       const taskDiv = `
-      <div class="task" style="background-color:${task.color};">
+      <div class="task" style="border: 3px solid ${task.color};">
         <p>${task.title}</p>
         <p>${task.description}</p>
         <form action="tasksCrudAsync" method="POST" id="${task.id}">
             <button class="done" value="${task.id}">Done</button>
             <button class="todo" value="${task.id}">To Do</button>
-            <button class="delete" value="${task.id}">delete</button>
+            <button class="delete" value="${task.id}">X</button>
         </form>
       </div>
       `
@@ -159,13 +180,13 @@ const displayTasks = async () =>{
     if(task.state === 'done'){
 
       const taskDiv = `
-      <div class="task" style="background-color:${task.color};">
+      <div class="task" style="border: 3px solid ${task.color};">
         <p>${task.title}</p>
         <p>${task.description}</p>
         <form action="tasksCrudAsync" method="POST" id="${task.id}">
             <button class="progress" value="${task.id}">In progress</button>
             <button class="todo" value="${task.id}">To Do</button>
-            <button class="delete" value="${task.id}">delete</button>
+            <button class="delete" value="${task.id}">X</button>
         </form>
       </div>
       `
@@ -175,15 +196,19 @@ const displayTasks = async () =>{
 
   });
 
+
+  displayTags();
+
   const buttons = document.querySelectorAll('button');
-  const btns = Array.from(buttons).filter(button => button.id !== 'addtaskbtn');
+  const button = Array.from(buttons).filter(button => button.id !== 'addtaskbtn');
+  const btns = Array.from(button).filter(button => button.id !== 'openPopup');
+
   btns.forEach(btn => {
     btn.addEventListener('click', (e)=>{
       e.preventDefault();
       changeState(btn);
     })
   });
-
 
 
 }
@@ -205,7 +230,7 @@ const displayWorkSpace = async (e) =>{
     <div class="workspaceEach">
       <a href="./workspaceLists.php?workspaceId=${workspace.id}&workspaceTitle=${workspace.title}"><p>${workspace.title}</p></a>
       <p>${workspace.description}</p>
-      <form action="workSpace.php" method="GET">
+      <form action="workSpace.php" method="GET" class="deleteWorkspaceBtn">
           <button type="submit" name="Delete" id="${workspace.id}">X</button>
       </form>
     </div>
@@ -223,9 +248,6 @@ const displayWorkSpace = async (e) =>{
       deleteWorkspace(btn);
     })
   });
-
-
-
   
 }
 
@@ -235,6 +257,7 @@ const changeState = async (btn) =>{
     if (btn.className === 'delete') {
       const response = await fetch('tasksCrudAsync.php?DeleteTask=true&taskId=' + btn.value, {method: "GET",});
       console.log(btn.value);
+      formState.parentElement.style.display = 'none';
       formState.parentElement.innerHTML = '';
   } else {
     console.log(btn.value);
@@ -251,6 +274,7 @@ const deleteList = async (btn) =>{
   const formData = new FormData(formState);
   const response = await fetch('tables.php?DeleteList=true&listId=' + btn.value, {method: "GET",});
   console.log(btn.value);
+  formState.parentElement.style.display = 'none';
   formState.parentElement.innerHTML = '';
 }
 
@@ -264,18 +288,52 @@ const deleteWorkspace = async (btn) =>{
   
 }
 
+const displayTags = async () =>{
+
+  const formTag = document.getElementById('tags');
+
+  const formData = new FormData(formTag);
+  const response = await fetch('tasksCrudAsync.php?display=true', {method: "POST", body: formData});
+  const responseData = await response.json();
+
+  const select = document.getElementById('tagsSelect');
+
+  select.innerHTML = '';
+
+  responseData.forEach(tag => {
+    console.log(tag);
+
+    const options = `
+    
+    <option value="${tag.emoji + tag.name}" class="tag">${tag.emoji + tag.name}</option>
+    
+    `;
+  select.innerHTML += options;  
+
+  });
+
+}
+
 
 
 
 if(document.title === 'tasks'){
-  displayTasks();  
+  // JavaScript to show the pop-up
+document.getElementById("openPopup").addEventListener("click", function() {
+  document.getElementById("popupContainer").style.display = "block";
+});
+
+// JavaScript to close the pop-up
+document.getElementById("closePopup").addEventListener("click", function() {
+  document.getElementById("popupContainer").style.display = "none";
+});
+
+  displayTags();
 }else if(document.title === 'workspace'){
   displayWorkSpace();
 }else{
   displayLists();
 }
-
-console.log(form.id);
 
 if (form.id) {
   form.addEventListener('submit', async(e) =>{
