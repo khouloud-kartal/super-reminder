@@ -43,4 +43,5 @@ class UserModel extends GlobalModel{
         $request = $this->connect->prepare($strRequest);
         $request->execute($changes);
     }
+
 }

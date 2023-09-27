@@ -89,6 +89,7 @@ const displayTags = async () =>{
 }
 
 const displayLists = async () =>{
+
   const formData = new FormData(form);
   const response = await fetch('tables.php?inscription=true', {method: "POST", body: formData});
 
@@ -117,6 +118,9 @@ const displayLists = async () =>{
 
   });
 
+
+  displayMembers();
+
   const addTaskBtn = document.querySelectorAll('.addTask'); 
   addTaskBtn.forEach(btn => {
     btn.addEventListener("click", ()=>{
@@ -136,7 +140,7 @@ const displayLists = async () =>{
     })
   });
 
-  
+ 
 }
 
 
@@ -234,6 +238,8 @@ const displayTasks = async () =>{
   const button = Array.from(buttons).filter(button => button.id !== 'addtaskbtn');
   const btns = Array.from(button).filter(button => button.id !== 'openPopup');
 
+
+
   console.log(btns)
   btns.forEach(btn => {
     btn.addEventListener('click', (e)=>{
@@ -323,9 +329,42 @@ const deleteWorkspace = async (btn) =>{
 }
 
 
+const displayMembers = async() =>{
+  const formMember = document.getElementById('members');
+  const formData = new FormData(formMember);
+  const response = await fetch('tables.php?displayMembers=true', {method: "POST", body: formData});
 
+  const responseData = await response.json();
+  console.log(responseData);
 
+  const membersUl = document.getElementById('memberList');
 
+  membersUl.innerHTML = '';
+
+  responseData.forEach(member => {
+    const memberLi = `<li>${member.login}</li>`
+
+    membersUl.innerHTML += memberLi;
+
+  });
+
+  addMember();
+
+}
+
+const addMember = () =>{
+  const formMember = document.getElementById('members');
+  formMember.addEventListener('submit', async(e) =>{
+    e.preventDefault();
+    const formData = new FormData(formMember);
+    const response = await fetch('tables.php?addMember=true', {method: "POST", body: formData});
+
+    const responseData = await response.json();
+
+    displayMembers()
+  })
+
+}
 
 
 if(document.title === 'tasks'){
@@ -343,8 +382,18 @@ if(document.title === 'tasks'){
 
 }else if(document.title === 'workspace'){
   displayWorkSpace();
-}else{
+}else if(document.title === 'workspaces'){
+  document.getElementById("openPopup").addEventListener("click", function() {
+    document.getElementById("popupContainer").style.display = "block";
+  });
+
+  // JavaScript to close the pop-up
+  document.getElementById("closePopup").addEventListener("click", function() {
+    document.getElementById("popupContainer").style.display = "none";
+  });
+
   displayLists();
+
 }
 
 if (form.id) {
@@ -356,12 +405,15 @@ if (form.id) {
       await displayTasks();
     }else if(form.id === 'workSpace'){
       await displayWorkSpace();
+    }else if(form.id === 'workspaces'){
+      await displayLists();
     }else{
       await displayError(form.id);
     }
     
   });
 }
+
 
 
 

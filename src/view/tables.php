@@ -30,5 +30,18 @@ if(isset($_GET['DeleteList'])){
     die();
 }
 
+if(isset($_GET['addMember'])){
+    $workspace->addUserToWorkspace($_POST, $_SESSION['WorkspaceId']);
+    // echo $workspace->getMsg();
+    $usersByWorkspace = $workspace->getMembersByWorkspace($_SESSION['WorkspaceId']);
+    echo $usersByWorkspace;
+    die();
+}
 
+
+if(isset($_GET['displayMembers'])){
+    $usersByWorkspace = $workspace->getMembersByWorkspace($_SESSION['WorkspaceId']);
+    echo $usersByWorkspace;
+    die();
+}
 

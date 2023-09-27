@@ -28,6 +28,7 @@ class WorkspaceController{
         return true;
 
     }
+
     public function addWorkspace($post, $userId){
         if($this->checkFormNotEmpty($post)){
             $request = new WorkspaceModel();
@@ -64,6 +65,41 @@ class WorkspaceController{
         $result = $request->requestCheckWorkspaceExists($userId, $workspaceId);
         return $result;
     }
+
+    public function checkUserExists($userEmail){
+        $request = new WorkspaceModel();
+        $result = $request->requestCheckUserExists($userEmail);
+        return $result;
+    }
+
+    public function addUserToWorkspace($post, $workspaceId){
+        if($this->checkFormNotEmpty($post)){
+            if ($this->checkUserExists($post['email'])) {
+                $userId = $this->checkUserExists($post['email'])[0]['id'];
+                $request = new WorkspaceModel();
+                $request->requestAddUserToWorkspace($workspaceId, $userId);
+                
+                $this->msg = '<p>Work Space is added</p>';
+            }else{
+                $this->msg = '<p>The email does not belong to any user</p>';
+            }
+            
+        }else{
+            $this->msg = '<p>remplir tous les champs</p>';
+        }
+
+    }
+
+
+    public function getMembersByWorkspace($workspaceId){
+        $request = new WorkspaceModel();
+        $data = $request->requestGetMembersByWorkspace($workspaceId);
+        $json = json_encode($data, JSON_PRETTY_PRINT);
+
+        return $json;
+    }
+
+    
 
     
 
