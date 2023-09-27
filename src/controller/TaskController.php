@@ -45,10 +45,21 @@ class TaskController{
         }
     }
 
+    private function checkTag($name){
+        $user = new TaskModel();
+        $count = $user->requestCheckTag($name);
+
+        if($count < 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function addTask($post, $listId){
         if($this->checkFormNotEmpty($post) && $this->checkTask($_POST['title'])){
             $request = new TaskModel();
-            $request->requestAddTask($post['title'], $post['description'], $post['color'], $post['finDate'], $listId);
+            $request->requestAddTask($post['title'], $post['description'], $post['color'], $post['finDate'], $post['tags'], $listId);
             $this->msg = '<p>Task is added</p>';
         }else{
             $this->msg = '<p>remplir tous les champs</p>';
@@ -79,7 +90,7 @@ class TaskController{
 
 
     public function addTags($post, $userId){
-        if($this->checkFormNotEmpty($post)){
+        if($this->checkFormNotEmpty($post) && $this->checkTag($_POST['name'])){
             $request = new TaskModel();
             $request->requestAddTags($post['name'], $post['emoji'], $userId);
             $this->msg = '<p>Tag is added</p>';

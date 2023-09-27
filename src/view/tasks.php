@@ -10,7 +10,7 @@ $title = 'tasks';
 
 $user = $_SESSION['user'];
 
-// use App\controller\TablesController;
+use App\controller\TablesController;
 // use App\controller\WorkspaceController;
 use App\controller\TaskController;
 
@@ -18,20 +18,20 @@ use App\controller\TaskController;
 $_SESSION['listId'] = $_GET['listId'];
 
 $tasks = new TaskController();
+$list = new TablesController();
 
-// if($_POST != NULL && isset($_GET['AddTask'])){
+$checkListId = $list->checkListId($user->getId(), $_GET['listId']);
 
-//     $tasks->addTask($_POST, $_SESSION['listId']);
-//     echo $tasks->getAllTasksJson($_SESSION['listId']);
-//     die();
-// }
-
+// var_dump($checkListId);
 
 ?>
 
 <?php require_once('./includes/header.php'); ?>
 
 <main id ="tasksPage">
+
+    <?php if($checkListId) {?>
+
     <form action="tasksCrudAsync.php" method="post" id="tasks">
         <fieldset>
             <legend>Add a task</legend>
@@ -45,22 +45,23 @@ $tasks = new TaskController();
             <label for="color">Color</label>
             <input type="color" name="color">
 
-            <label for="finDate">Fin Date</label>
-            <input type="date" name="finDate">
-
             <label for="tags">Tags</label>
             <select name="tags" id="tagsSelect">
                 <option value="urgent">Urgent</option>
             </select>
 
-            <button type="submit" name="submit" value="submit" id="addtaskbtn">Add</button>
 
-            <button id="openPopup">Add a tag</button>
+            <label for="finDate">Fin Date</label>
+            <input type="date" name="finDate">
+
+            <button type="submit" name="submit" value="submit" id="addtaskbtn">Add</button>
+    
         </fieldset>
 
 
     </form>
 
+    <button id="openPopup">Add a tag</button>
 
     <div id="popupContainer" class="popup">
         <div class="popup-content">
@@ -95,6 +96,9 @@ $tasks = new TaskController();
         </div>
     </div>
 
+
+    
+
     <div id="displayTasksDiv">
 
         <h2>My Tasks</h2>
@@ -121,4 +125,8 @@ $tasks = new TaskController();
         </div>
 
     </div>
+
+    <?php }else{ ?>
+        <p>This list does not belongs to you</p>
+    <?php } ?>
 </main>

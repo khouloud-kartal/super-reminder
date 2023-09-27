@@ -4,13 +4,14 @@ namespace App\model;
 
 class TaskModel extends GlobalModel{
 
-    public function requestAddTask($title, $description, $color, $finDate, $listId){
-        $request = $this->connect->prepare("INSERT INTO tasks (listId, title, description, color, finDate) VALUES (:listId, :title, :description, :color, :finDate)");
+    public function requestAddTask($title, $description, $color, $finDate, $tag, $listId){
+        $request = $this->connect->prepare("INSERT INTO tasks (listId, title, description, color, finDate, tag) VALUES (:listId, :title, :description, :color, :finDate, :tag)");
         $request->execute([':listId' => $listId,
                             ':title' => $title,
                             ':description' => $description,
                             ':color' => $color,
-                            ':finDate' => $finDate
+                            ':finDate' => $finDate,
+                            ':tag' => $tag
         ]);
 
         return $request;
@@ -34,6 +35,13 @@ class TaskModel extends GlobalModel{
     public function requestCheckTask($title){
         $request = $this->connect->prepare("SELECT * FROM tasks WHERE title = :title");
         $request->execute([':title' => $title]);
+        $data = $request->rowCount();
+        return $data;
+    }
+
+    public function requestCheckTag($name){
+        $request = $this->connect->prepare("SELECT * FROM tags WHERE name = :name");
+        $request->execute([':name' => $name]);
         $data = $request->rowCount();
         return $data;
     }

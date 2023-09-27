@@ -16,9 +16,7 @@ use App\controller\WorkspaceController;
 $tables = new TablesController();
 $workspace = new WorkspaceController();
 
-$workspaceData = $workspace->checkTablesExists($_SESSION['user']->getId(), $_GET['workspaceId']);
-
-// $data = $tables->GetTablesByWorkspaceId($_GET['workspaceId']);
+$workspaceData = $workspace->checkWorkspaceExists($_SESSION['user']->getId(), $_GET['workspaceId']);
 
 $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
 
@@ -26,7 +24,11 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
 
 <?php require_once('./includes/header.php'); ?>
 
+
+
 <main id="tablesPage">
+
+    <?php if($workspaceData){?>
 
     <h1><?=  $_GET['workspaceTitle'] ?></h1>
 
@@ -51,5 +53,10 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
     <div id="tableList">
 
     </div>
+
+    <?php }else{ ?>
+
+        <p>This Work Space does not belong to you</p>
+    <?php } ?>
 
 </main>

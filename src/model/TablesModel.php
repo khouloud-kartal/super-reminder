@@ -27,4 +27,23 @@ class TablesModel extends GlobalModel{
         return $request;
     }
 
+    public function requestCheckListId($userId, $listId){
+
+        $request = $this->connect->prepare("SELECT * FROM tables INNER JOIN workspace ON tables.workspaceId = workspace.id WHERE userId = :userId AND tables.id = :listId");
+
+        $request->execute([':userId' => $userId,
+                            ':listId' => $listId
+            ]);
+
+    
+        $data = $request->rowCount();
+        if($data === 0){
+
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
 }

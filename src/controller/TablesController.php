@@ -60,6 +60,12 @@ class TablesController{
         return $result;
     }
 
+    public function checklistId($userId, $listId){
+        $request = new TablesModel();
+        $result = $request->requestCheckListId($userId, $listId);
+        return $result;
+    }
+
 
     ##################################################################################
     ######################################## Getters #################################

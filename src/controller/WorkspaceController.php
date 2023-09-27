@@ -59,6 +59,12 @@ class WorkspaceController{
         return $result;
     }
 
+    public function checkWorkspaceExists($userId, $workspaceId){
+        $request = new WorkspaceModel();
+        $result = $request->requestCheckWorkspaceExists($userId, $workspaceId);
+        return $result;
+    }
+
     
 
     ##################################################################################

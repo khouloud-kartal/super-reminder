@@ -44,6 +44,7 @@ function myDropFunc() {
 
 const form = document.querySelector('form');
 const displayError = async ($id) =>{ 
+  
     const formData = new FormData(form);
     const response = await fetch($id + '.php?inscription=true', {method: "POST", body: formData});
   
@@ -59,6 +60,32 @@ const displayError = async ($id) =>{
 
       message.innerHTML = responseData;        
     
+}
+
+const displayTags = async () =>{
+
+  const formTag = document.getElementById('tags');
+
+  const formData = new FormData(formTag);
+  const response = await fetch('tasksCrudAsync.php?display=true', {method: "POST", body: formData});
+  const responseData = await response.json();
+
+  const select = document.getElementById('tagsSelect');
+
+  select.innerHTML = '';
+
+  responseData.forEach(tag => {
+
+    const options = `
+    
+    <option value="${tag.emoji + tag.name}" class="tag">${tag.emoji + tag.name}</option>
+    
+    `;
+    
+  select.innerHTML += options;  
+
+  });
+
 }
 
 const displayLists = async () =>{
@@ -114,6 +141,9 @@ const displayLists = async () =>{
 
 
 const displayTasks = async () =>{
+
+  await displayTags();
+
   const formData = new FormData(form);
   const response = await fetch('tasksCrudAsync.php?AddTask=true', {method: "POST", body: formData});
 
@@ -127,25 +157,22 @@ const displayTasks = async () =>{
   taskProgressDiv.innerHTML = '';
   taskDoneDiv.innerHTML = '';
 
-  // console.log(responseData);
-
   responseData.forEach(task => {
 
     const composantes = task.finDate.split("-");
 
-    // Obtenir le jour, le mois et l'année
     const annee = composantes[0];
     const mois = composantes[1];
     const jour = composantes[2];
 
-    // Formater la date au format "jj/mm/aaaa"
     const dateFormatee = `${jour}/${mois}/${annee}`;
-    // console.log(task)
+
 
     if(task.state === 'todo'){
 
       const taskDiv = `
       <div class="task" style="border: 3px solid ${task.color};">
+        <p>${task.tag}</p>
         <p>${task.title}</p>
         <p>${task.description}</p>
         <p>${dateFormatee}</p>
@@ -164,8 +191,10 @@ const displayTasks = async () =>{
 
       const taskDiv = `
       <div class="task" style="border: 3px solid ${task.color};">
+        <p>${task.tag}</p>
         <p>${task.title}</p>
         <p>${task.description}</p>
+        <p>${dateFormatee}</p>
         <form action="tasksCrudAsync" method="POST" id="${task.id}">
             <button class="done" value="${task.id}">Done</button>
             <button class="todo" value="${task.id}">To Do</button>
@@ -181,8 +210,10 @@ const displayTasks = async () =>{
 
       const taskDiv = `
       <div class="task" style="border: 3px solid ${task.color};">
+        <p>${task.tag}</p>
         <p>${task.title}</p>
         <p>${task.description}</p>
+        <p>${dateFormatee}</p>
         <form action="tasksCrudAsync" method="POST" id="${task.id}">
             <button class="progress" value="${task.id}">In progress</button>
             <button class="todo" value="${task.id}">To Do</button>
@@ -194,15 +225,16 @@ const displayTasks = async () =>{
       taskDoneDiv.innerHTML +=taskDiv
     }
 
+
   });
 
 
-  displayTags();
-
   const buttons = document.querySelectorAll('button');
+
   const button = Array.from(buttons).filter(button => button.id !== 'addtaskbtn');
   const btns = Array.from(button).filter(button => button.id !== 'openPopup');
 
+  console.log(btns)
   btns.forEach(btn => {
     btn.addEventListener('click', (e)=>{
       e.preventDefault();
@@ -218,6 +250,8 @@ const displayWorkSpace = async (e) =>{
   const formData = new FormData(form);
   const response = await fetch('workSpace.php?display=true', {method: "POST", body: formData});
   const responseData = await response.json();
+
+  console.log(responseData)
 
   const workspaceDiv = document.getElementById('workSpacesDiv');
   workspaceDiv.innerHTML = '';
@@ -288,47 +322,25 @@ const deleteWorkspace = async (btn) =>{
   
 }
 
-const displayTags = async () =>{
 
-  const formTag = document.getElementById('tags');
 
-  const formData = new FormData(formTag);
-  const response = await fetch('tasksCrudAsync.php?display=true', {method: "POST", body: formData});
-  const responseData = await response.json();
-
-  const select = document.getElementById('tagsSelect');
-
-  select.innerHTML = '';
-
-  responseData.forEach(tag => {
-    console.log(tag);
-
-    const options = `
-    
-    <option value="${tag.emoji + tag.name}" class="tag">${tag.emoji + tag.name}</option>
-    
-    `;
-  select.innerHTML += options;  
-
-  });
-
-}
 
 
 
 
 if(document.title === 'tasks'){
   // JavaScript to show the pop-up
-document.getElementById("openPopup").addEventListener("click", function() {
-  document.getElementById("popupContainer").style.display = "block";
-});
+  document.getElementById("openPopup").addEventListener("click", function() {
+    document.getElementById("popupContainer").style.display = "block";
+  });
 
-// JavaScript to close the pop-up
-document.getElementById("closePopup").addEventListener("click", function() {
-  document.getElementById("popupContainer").style.display = "none";
-});
+  // JavaScript to close the pop-up
+  document.getElementById("closePopup").addEventListener("click", function() {
+    document.getElementById("popupContainer").style.display = "none";
+  });
 
-  displayTags();
+  displayTasks();
+
 }else if(document.title === 'workspace'){
   displayWorkSpace();
 }else{
@@ -340,7 +352,7 @@ if (form.id) {
     e.preventDefault();
     if(form.id === 'tables'){ 
       await displayLists();
-    }else if(form.id === 'tasks'){
+    }else if(form.id === 'tasks'){ 
       await displayTasks();
     }else if(form.id === 'workSpace'){
       await displayWorkSpace();
