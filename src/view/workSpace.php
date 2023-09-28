@@ -17,6 +17,8 @@
     if($_POST != NULL && isset($_GET['display'])){
         $workspace->addWorkspace($_POST, $user->getId());
         $workspaceList = $workspace->getAllWorkspaceDataByUserId($user->getId());
+        // echo $workspace->getMsg();
+
         echo $workspaceList;
         die();
     }

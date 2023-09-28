@@ -33,9 +33,9 @@ class WorkspaceController{
         if($this->checkFormNotEmpty($post)){
             $request = new WorkspaceModel();
             $request->requestAddWorkspace($post['title'], $post['description'], $userId);
-            $this->msg = '<p>Work Space is added</p>';
+            $this->msg = 'Work Space is added';
         }else{
-            $this->msg = '<p>remplir tous les champs</p>';
+            $this->msg = 'remplir tous les champs';
         }
 
     }
