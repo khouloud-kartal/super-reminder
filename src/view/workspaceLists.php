@@ -47,11 +47,12 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
             <button type="submit" name="submit" value="submit" id="btableForm">Add</button>
 
             <div id="message"></div>
+            <button id="openPopup">Add a member</button>
         </fieldset>
     </form>
 
 
-    <button id="openPopup">Add a member</button>
+    <!-- <button id="openPopup">Add a member</button> -->
 
     <div id="popupContainer" class="popup">
         <div class="popup-content">

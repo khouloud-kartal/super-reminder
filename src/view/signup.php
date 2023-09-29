@@ -41,6 +41,8 @@
 
                 <button type="submit" name="submit" value="submit" id="signUp">Submit</button>
                 
+                <p>Password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters</p>
+
                 <div id="message"></div>
             </fieldset>
         </form>

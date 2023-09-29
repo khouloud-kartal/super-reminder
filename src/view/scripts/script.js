@@ -70,12 +70,16 @@ const displayTags = async () =>{
   const response = await fetch('tasksCrudAsync.php?display=true', {method: "POST", body: formData});
   const responseData = await response.json();
 
+  console.log(responseData)
+
   const select = document.getElementById('tagsSelect');
 
   select.innerHTML = '';
 
   const message = document.getElementById('message');
   message.innerHTML = '';
+
+  console.log(responseData);
 
   responseData.forEach(tag => {
 

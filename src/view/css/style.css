@@ -151,7 +151,7 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
     align-items: center;
 }
 
-#profilPage, #workspacePage, #tablesPage, #tasksPage{
+#profilPage, #workspacePage, #tablesPage, #tasksPage, #signupPage{
     margin-top: 70px;
 }
 

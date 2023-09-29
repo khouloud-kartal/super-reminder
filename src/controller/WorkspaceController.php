@@ -79,7 +79,7 @@ class WorkspaceController{
                 $request = new WorkspaceModel();
                 $request->requestAddUserToWorkspace($workspaceId, $userId);
                 
-                $this->msg = '<p>Work Space is added</p>';
+                $this->msg = '<p>Member is added</p>';
             }else{
                 $this->msg = '<p>The email does not belong to any user</p>';
             }
