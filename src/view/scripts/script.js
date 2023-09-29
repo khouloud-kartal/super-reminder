@@ -74,15 +74,24 @@ const displayTags = async () =>{
 
   select.innerHTML = '';
 
+  const message = document.getElementById('message');
+  message.innerHTML = '';
+
   responseData.forEach(tag => {
+
+    console.log(tag)
 
     const options = `
     
     <option value="${tag.emoji + tag.name}" class="tag">${tag.emoji + tag.name}</option>
     
     `;
-    
-  select.innerHTML += options;  
+
+    if(typeof(tag) === 'string'){
+      message.innerHTML = tag
+    }else{
+      select.innerHTML += options;  
+    }
 
   });
 
@@ -99,6 +108,10 @@ const displayLists = async () =>{
 
   tableList.innerHTML= '';
 
+
+  const message = document.getElementById('message');
+  message.innerHTML = '';
+
   responseData.forEach(list => {
 
     const classList = `
@@ -112,8 +125,13 @@ const displayLists = async () =>{
     </div>
     
     `
+    if(typeof(list) === 'string'){
+      message.innerHTML = list
+    }else{
+      tableList.innerHTML += classList;
+    }
 
-    tableList.innerHTML += classList;
+    
 
 
   });
@@ -139,7 +157,6 @@ const displayLists = async () =>{
       deleteList(btns);
     })
   });
-
  
 }
 
@@ -170,6 +187,8 @@ const displayTasks = async () =>{
     const jour = composantes[2];
 
     const dateFormatee = `${jour}/${mois}/${annee}`;
+
+    console.log(task);
 
 
     if(task.state === 'todo'){
@@ -228,8 +247,6 @@ const displayTasks = async () =>{
 
       taskDoneDiv.innerHTML +=taskDiv
     }
-
-
   });
 
 
@@ -257,15 +274,18 @@ const displayWorkSpace = async (e) =>{
   const response = await fetch('workSpace.php?display=true', {method: "POST", body: formData});
   const responseData = await response.json();
 
-  console.log(responseData)
-
   const workspaceDiv = document.getElementById('workSpacesDiv');
   workspaceDiv.innerHTML = '';
 
+  const message = document.getElementById('message');
+  message.innerHTML = '';
+
   responseData.forEach(workspace => {
 
+    console.log(workspace);
 
-    console.log(workspace)
+    console.log(typeof(workspace));
+
     const workspaceList = `
     <div class="workspaceEach">
       <a href="./workspaceLists.php?workspaceId=${workspace.id}&workspaceTitle=${workspace.title}"><p>${workspace.title}</p></a>
@@ -275,7 +295,13 @@ const displayWorkSpace = async (e) =>{
       </form>
     </div>
     `
-    workspaceDiv.innerHTML += workspaceList;
+
+    if(typeof(workspace) === 'string'){
+      message.innerHTML = workspace
+    }else{
+      workspaceDiv.innerHTML += workspaceList;
+    }
+    
 
   });
 
@@ -342,13 +368,14 @@ const displayMembers = async() =>{
   membersUl.innerHTML = '';
 
   responseData.forEach(member => {
+    console.log(member)
     const memberLi = `<li>${member.login}</li>`
-
     membersUl.innerHTML += memberLi;
 
   });
 
   addMember();
+
 
 }
 
@@ -359,7 +386,12 @@ const addMember = () =>{
     const formData = new FormData(formMember);
     const response = await fetch('tables.php?addMember=true', {method: "POST", body: formData});
 
-    const responseData = await response.json();
+    const responseData = await response.text();
+
+    const message = document.getElementById('message1');
+    message.innerHTML = '';
+
+    message.innerHTML = responseData
 
     displayMembers()
   })
@@ -393,7 +425,6 @@ if(document.title === 'tasks'){
   });
 
   displayLists();
-
 }
 
 if (form.id) {

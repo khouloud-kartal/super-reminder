@@ -19,9 +19,10 @@ $workspace = new WorkspaceController();
 if($_POST != NULL && isset($_GET['inscription'])){
     $table->addTable($_POST, $_SESSION['WorkspaceId']);
     $lists = $table->getListJson($_SESSION['WorkspaceId']);
-    // echo $table->getMsg();
-    echo $lists;
-    die();
+    $lists[] = $table->getMsg();
+    $json = json_encode($lists, JSON_PRETTY_PRINT);
+    echo $json;
+    die(); 
 }
 
 
@@ -32,10 +33,7 @@ if(isset($_GET['DeleteList'])){
 
 if(isset($_GET['addMember'])){
     $workspace->addUserToWorkspace($_POST, $_SESSION['WorkspaceId']);
-    // echo $workspace->getMsg();
-    $usersByWorkspace = $workspace->getMembersByWorkspace($_SESSION['WorkspaceId']);
-    echo $usersByWorkspace;
-    die();
+    echo $workspace->getMsg();
 }
 
 

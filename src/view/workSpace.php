@@ -15,10 +15,15 @@
     $workspace = new WorkspaceController();
 
     if($_POST != NULL && isset($_GET['display'])){
+        // var_dump($_POST);
         $workspace->addWorkspace($_POST, $user->getId());
         $workspaceList = $workspace->getAllWorkspaceDataByUserId($user->getId());
-        echo $workspaceList;
-        die();
+        $workspaceList[] = $workspace->getMsg();
+        $json = json_encode($workspaceList, JSON_PRETTY_PRINT);
+        echo $json;
+        die(); 
+        
+           
     }
 
     if(isset($_GET['DeleteWorkSpace'])){
@@ -45,6 +50,8 @@
 
                 <button type="submit" name="submit" value="submit" id="bworkspaceForm">Submit</button>
                 
+                <div id="message"></div>
+
             </fieldset>
         </form>
     <h2>My Work Spaces</h2>

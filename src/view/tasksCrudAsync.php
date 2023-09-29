@@ -33,6 +33,9 @@ if(isset($_GET['DeleteTask'])){
 
 if($_POST != NULL && isset($_GET['display'])){
     $tasks->addTags($_POST, $user->getId());
-    echo $tasks->getAllTagsJson($user->getId());
-    die();
+    $tags =  $tasks->getAllTagsJson($user->getId());
+    $tags[] = $tasks->getMsg();
+    $json = json_encode($tags, JSON_PRETTY_PRINT);
+    echo $json;
+    die(); 
 }

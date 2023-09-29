@@ -92,6 +92,8 @@ $checkListId = $list->checkListId($user->getId(), $_GET['listId']);
                 
                 <button type="submit" id="addTag">Add</button>
 
+                <div id="message"></div>
+
             </form>
         </div>
     </div>

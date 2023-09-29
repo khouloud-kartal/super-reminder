@@ -12,7 +12,7 @@ class WorkspaceController{
 
     private ?string $description;
 
-    public ?string $msg;
+    public ?string $msg = '';
 
     public function __construct(){
 
@@ -33,19 +33,19 @@ class WorkspaceController{
         if($this->checkFormNotEmpty($post)){
             $request = new WorkspaceModel();
             $request->requestAddWorkspace($post['title'], $post['description'], $userId);
-            $this->msg = '<p>Work Space is added</p>';
-        }else{
-            $this->msg = '<p>remplir tous les champs</p>';
+            $this->msg = 'Work Space is added';
         }
+        // }else{
+        //     $this->msg = 'remplir tous les champs';
+        // }
 
     }
 
     public function getAllWorkspaceDataByUserId($userId){
         $request = new WorkspaceModel();
         $data = $request->requestGetWorkspaceByUserId($userId);
-        $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        return $json;
+        return $data;
     }
 
     public function checkTablesExists($userId, $workspaceId){

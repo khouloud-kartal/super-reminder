@@ -17,7 +17,7 @@ class TaskController{
 
     private ?string $color;
 
-    public ?string $msg;
+    public ?string $msg = '';
 
     public function __construct(){
 
@@ -94,8 +94,6 @@ class TaskController{
             $request = new TaskModel();
             $request->requestAddTags($post['name'], $post['emoji'], $userId);
             $this->msg = '<p>Tag is added</p>';
-        }else{
-            $this->msg = '<p>remplir tous les champs</p>';
         }
 
     }
@@ -103,9 +101,8 @@ class TaskController{
     public function getAllTagsJson($userId){
         $request = new TaskModel();
         $data = $request->requestGetTagsByUserId($userId);
-        $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        return $json;
+        return $data;
     }
     
 

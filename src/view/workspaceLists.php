@@ -64,6 +64,8 @@ $_SESSION['WorkspaceId'] = $_GET['workspaceId'];
                 
                 <button type="submit" id="addMember">Add</button>
 
+                <div id="message1"></div>
+
             </form>
         </div>
     </div>

@@ -12,7 +12,7 @@ class TablesController{
 
     private ?string $description;
 
-    public ?string $msg;
+    public ?string $msg = '';
 
     public function __construct(){
 
@@ -32,9 +32,7 @@ class TablesController{
         if($this->checkFormNotEmpty($post)){
             $request = new TablesModel();
             $request->requestAddTables($post['title'], $post['description'], $workspace);
-            $this->msg = '<p>List is added</p>';
-        }else{
-            $this->msg = '<p>remplir tous les champs</p>';
+            $this->msg = 'List is added';
         }
 
     }
@@ -48,9 +46,8 @@ class TablesController{
     public function getListJson($workspaceId){
         $request = new TablesModel();
         $data = $request->requestGetTablesByWorkspaceId($workspaceId);
-        $json = json_encode($data);
 
-        return $json;
+        return $data;
     }
 
 
